@@ -1,10 +1,20 @@
 import React from 'react';
+import './Footer.styles.scss';
 
 
 export const Footer: React.FC<{}> = () => {
   return (
-    <div>
-      <h2>Footer</h2>
-    </div>
+    <footer className="main-footer">
+      <div className="footer-wrapper">
+        <div className="copyright">
+          <p>&copy; Fadviser 2020 - 2021</p>
+        </div>
+        <div className="credentials">
+          <p className="author">Ilya Nesterovich</p>
+          <a href="/link">GitHub</a>
+        </div>
+      </div>
+     
+    </footer>
   )
 }

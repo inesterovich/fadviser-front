@@ -1,7 +1,8 @@
 @import '../../_scss_variables';
 
 .main-header {
-  height: 64px;
+  border-top: 1px solid transparent;
+  height: $header-height;
   width: 100%;
   background-color: $bg-color-secondary;
   
@@ -12,12 +13,46 @@
     align-items: center;
     width: 90%;
     margin: 0 auto;
+    height: 100%;
+    line-height: 100%;
+
+    .logo {
+      height: 60px;
+      .logo-img {
+        height: 100%;
+        width: auto;
+      }
+    }
 
     .main-nav-list {
       list-style-type: none;
       display: flex;
-      width: 400px;
-      justify-content: space-between;
+      align-content: center;
+
+      ul {
+        height: 100%;
+      }
+      
+    
+      
+      a {
+        display: block;
+        height: $header-height;
+        line-height: $header-height;
+        text-decoration: none;
+        color: $text-color-primary;
+        padding: 0 1.5rem;
+      }
+
+      a:hover {
+        
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      
+
+
+      
+
       
     }
   }

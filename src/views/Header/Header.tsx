@@ -1,30 +1,31 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import logoUrl from '../../assets/images/fadviser.svg';
 
 import './Header.styles.scss'
+import {  LinkPropTypes } from '../../types';
 
 
-type LinkConfigType = {
-  name: string,
-  to: string
-}[]
+type LinkConfigType = LinkPropTypes[];
 export const Header: React.FC<{}> = () => {
 
   const LinkConfig: LinkConfigType = [
     {
-    name: 'О платформе',
-    to: '/about'
+      text: 'О платформе',
+      to: '/',
+      hash: '#about'
     },
     {
-      name: 'Возможности',
-      to: '/opportunities'
+      text: 'Возможности',
+      to: '/',
+      hash: '#opportunities'
     },
     {
-      name: 'Регистрация',
+      text: 'Регистрация',
       to: '/register'
     },
     {
-      name: 'Войти',
+      text: 'Войти',
       to: '/login'
       },
 
@@ -35,13 +36,13 @@ export const Header: React.FC<{}> = () => {
     <header className="main-header">
       <nav className="main-nav">
       <div className="logo">
-        Fadviser-logo
+       <img className="logo-img" src={logoUrl} alt="Fadviser Logo" />
       </div>
         <ul className="main-nav-list">
           {
             LinkConfig.map((link, key) => (
               <li key={key}>
-                <NavLink to={link.to}>{ link.name }</NavLink>
+                <NavLink to={link.to}>{ link.text }</NavLink>
               </li>
             ))
           }

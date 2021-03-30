@@ -1,0 +1,84 @@
+@import '../../_scss_variables';
+
+.promo-section {
+  height: calc(100vh - #{$header-height});
+  background-image: url('../../assets/images/promo-image.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    text-align: center;
+  }
+
+  .text-container {
+    background-color: $bg-color-secondary;
+    padding: 8rem 9rem;
+    border-radius: 25px;
+  }
+
+  img {
+    max-height: 10rem;
+    object-fit: contain;
+  }
+
+  p {
+    font-size: 2.3rem;
+    color: $text-color-accent
+  }
+}
+
+.opportunity-section {
+  h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin: 1rem 0;
+  }
+ 
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .opportunity-wrapper {
+    width: 70%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
+    margin-bottom: 35px;
+  }
+
+  .card {
+    background-color: $bg-color-secondary;
+    text-align: center;
+    color: $text-color-secondary;
+    box-shadow: 
+      0 2px 2px 0 rgb(0 0 0 / 14%),
+      0 3px 1px -2px rgb(0 0 0 / 12%),
+      0 1px 5px 0 rgb(0 0 0 / 20%);
+
+    .card-content {
+      padding: 1rem;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .btn {
+    display: block;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 20px 28px;
+    margin-bottom: 1rem;
+    background-color: #1976d2;
+    color: $bg-color-secondary;
+    border: none;
+    border-radius: 5rem;
+    cursor: pointer;
+  }
+}

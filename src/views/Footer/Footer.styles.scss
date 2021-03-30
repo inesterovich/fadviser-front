@@ -1,0 +1,15 @@
+@import '../../_scss_variables';
+
+.main-footer {
+  height: 1rem;
+  .footer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .credentials p {
+    margin: 0;
+  }
+}
