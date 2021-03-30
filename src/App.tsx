@@ -1,15 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
 import { useRoutes } from './routes';
+import { Header } from './views/Header/Header';
 
 function App() {
-  const routes = useRoutes(true);
+  const routes = useRoutes(false);
 
   return (
     <div className="App">
-      {routes}
+      <Header />
+      <main>
+        {routes}
+      </main>
+      
     </div>
   );
 }

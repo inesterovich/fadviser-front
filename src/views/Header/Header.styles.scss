@@ -1,0 +1,25 @@
+@import '../../_scss_variables';
+
+.main-header {
+  height: 64px;
+  width: 100%;
+  background-color: $bg-color-secondary;
+  
+  .main-nav {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+
+    .main-nav-list {
+      list-style-type: none;
+      display: flex;
+      width: 400px;
+      justify-content: space-between;
+      
+    }
+  }
+  
+}
