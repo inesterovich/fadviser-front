@@ -46,10 +46,11 @@
     width: 70%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    column-gap: 1.5rem;
-    row-gap: 1.5rem;
+    column-gap: 2rem;
+    row-gap: 2rem;
     margin-bottom: 35px;
   }
+
 
   .card {
     background-color: $bg-color-secondary;
@@ -80,5 +81,32 @@
     border: none;
     border-radius: 5rem;
     cursor: pointer;
+  }
+}
+
+
+@media (max-width: 1024px) {
+    .opportunity-section {
+      .opportunity-wrapper {
+        width: 80%;
+      }
+    }
+}
+
+@media (max-width: 768px) {
+  .opportunity-section {
+    .opportunity-wrapper {
+      width: 70%;
+      
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .opportunity-section {
+    .opportunity-wrapper {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 }

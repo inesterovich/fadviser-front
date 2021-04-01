@@ -6,8 +6,12 @@ export type LinkPropTypes = {
   to: string,
   hash?: string,
   className?: string,
-  activeClassName?: string
+  activeClassName?: string,
+  isAuth?: boolean,
+  isModule?: boolean
 }
+
+export type LinkConfigType = LinkPropTypes[]
 
 export type CardProps = {
   link: null | LinkPropTypes;

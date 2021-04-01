@@ -6,7 +6,7 @@ import financialCapUrl from './assets/images/financialCap.jpg';
 import timeMoneyUrl from './assets/images/timeMoney.jpg';
 import reportUrl from './assets/images/report.jpg';
 
-import { CardProps } from './types';
+import { CardProps, LinkPropTypes } from './types';
 
 type CardsContentType = CardProps[];
 
@@ -67,3 +67,73 @@ export const cardsContent: CardsContentType = [
   },
 
 ]
+
+export const LinkConfig: LinkPropTypes[] = [
+  {
+    text: 'О платформе',
+    to: '/',
+    hash: '#about'
+  },
+  {
+    text: 'Возможности',
+    to: '/',
+    hash: '#opportunities'
+  },
+  {
+    text: 'Регистрация',
+    to: '/register'
+  },
+  {
+    text: 'Войти',
+    to: '/login'
+  },
+  {
+    text: 'Профиль',
+    to: '/profile',
+    isAuth: true,
+  },
+  {
+    text: 'Выйти',
+    to: '/logout',
+    isAuth: true,
+  },
+  {
+    text: 'Дашбоард',
+    to: '/dashboard',
+    isModule: true,
+  },
+  {
+    text: 'Учёт финансов',
+    to: '/accounts',
+    isModule: true,
+  },
+  {
+    text: 'Планирование бюджета',
+    to: '/budget',
+    isModule: true,
+  },
+  {
+    text: 'Управление кредитами',
+    to: '/debt',
+    isModule: true,
+  },
+  {
+    text: 'Калькулятор дохода',
+    to: '/income-cap',
+    isModule: true,
+  },
+  {
+    text: 'Конвертер жизни',
+    to: '/money-life-converter',
+    isModule: true,
+  },
+  {
+    text: 'Отчёты',
+    to: '/reports',
+    isModule: true,
+  },
+
+
+
+]
+
