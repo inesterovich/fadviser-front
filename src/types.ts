@@ -26,6 +26,34 @@ export type ImgProps = {
   alt: string
 }
 
+export type inputFieldType = {
+  type: string,
+  required?: boolean,
+  initialValue: string
+}
+
+export type FormFieldType  = {
+  fieldname: string,
+  input?: {
+    type: string,
+    required?: boolean,
+    initialValue: string
+  }
+ [index: string]: any
+}
+
+
+
+export type RegisterType = {
+  name?: string,
+  login: string,
+  email: string,
+  password: string,
+  avatar?: string
+}
+
+
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> =
   ThunkAction<

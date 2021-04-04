@@ -1,7 +1,8 @@
 import React from 'react';
 import logoUrl from '../../assets/images/fadviser.svg';
 import { NavBar } from '../../components/NavBar';
-import { LinkConfig } from '../../cardsContent';
+import { LinkConfig } from '../../content';
+
 
 import './Header.styles.scss'
 

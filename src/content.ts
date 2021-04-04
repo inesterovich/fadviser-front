@@ -6,7 +6,7 @@ import financialCapUrl from './assets/images/financialCap.jpg';
 import timeMoneyUrl from './assets/images/timeMoney.jpg';
 import reportUrl from './assets/images/report.jpg';
 
-import { CardProps, LinkPropTypes } from './types';
+import { CardProps, LinkPropTypes, FormFieldType } from './types';
 
 type CardsContentType = CardProps[];
 
@@ -135,5 +135,49 @@ export const LinkConfig: LinkPropTypes[] = [
 
 
 
+]
+
+// Вопрос. Мне, что-нибудь кроме инпутов тут надо?
+
+export const RegisterFieldContent: Array<FormFieldType> = [
+  {
+    fieldname: 'name',
+    input: {
+      type: 'text',
+      initialValue: ''
+    },
+  },
+  {
+    fieldname: 'login',
+    input: {
+      type: 'text',
+      required: true,
+      initialValue: ''
+    },
+  },
+  {
+    fieldname: 'email',
+    input: {
+      type: 'email',
+      required: true,
+      initialValue: ''
+    },
+  },
+  {
+    fieldname: 'password',
+    input: {
+      type: 'password',
+      required: true,
+      initialValue: ''
+    },
+  },
+  {
+    fieldname: 'avatar',
+    input: {
+      type: 'text',
+      required: false,
+      initialValue: ''
+    },
+  },
 ]
 
