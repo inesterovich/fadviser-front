@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { counterSlice } from '../features/counter/counterSlice';
+import { RegistrationSlice } from './Registation/Registration.slice';
 
 
 export const rootReducer = combineReducers({
-  counter: counterSlice.reducer
+  register: RegistrationSlice.reducer
 })

@@ -5,15 +5,33 @@ import { Card } from '../../components/Card';
 import { cardsContent } from '../../content';
 import { Modal } from '../../components/Modal';
 import { RegisterFieldContent } from '../../content';
+import { FormDataType, ModalDataType } from '../../types';
+import { RegistrationSchema } from '../../validationSchemas';
+import { RegistrationThunk } from '../../redux/Registation/Registration.thunks';
+import { useApDispatch } from '../../hooks/redux.hooks';
 
 
 
 export const AuthPage: React.FC<{}> = () => {
   
-  const RegisterFormData = {
+  const dispatch = useApDispatch();
+  
+  const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
-    onSubmit: (values:any) => console.log(values)
+    validationSchema: RegistrationSchema,
+    onSubmit: (values:any) => dispatch(RegistrationThunk(values))
   }
+
+  const RegisterModalContent:ModalDataType = {
+    title: 'Регистрация',
+    target: 'Присоединиться',
+    submitButton: 'Зарегистрироваться',
+    closeButton: 'Закрыть',
+    resetButton: 'Очистить'
+
+  }
+
+
 
 
   return (
@@ -38,9 +56,8 @@ export const AuthPage: React.FC<{}> = () => {
           }
         </div>
 
-        <Modal FormData={RegisterFormData }/>
+        <Modal FormData={RegisterFormData} ModalData={RegisterModalContent }/>
 
-        <button className="btn">Присоединиться</button>
 
         
 

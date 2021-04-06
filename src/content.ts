@@ -8,6 +8,7 @@ import reportUrl from './assets/images/report.jpg';
 
 import { CardProps, LinkPropTypes, FormFieldType } from './types';
 
+
 type CardsContentType = CardProps[];
 
 export const cardsContent: CardsContentType = [
@@ -138,15 +139,12 @@ export const LinkConfig: LinkPropTypes[] = [
 ]
 
 // Вопрос. Мне, что-нибудь кроме инпутов тут надо?
+// Нужен label и placeholder
+
+
+
 
 export const RegisterFieldContent: Array<FormFieldType> = [
-  {
-    fieldname: 'name',
-    input: {
-      type: 'text',
-      initialValue: ''
-    },
-  },
   {
     fieldname: 'login',
     input: {
@@ -171,13 +169,4 @@ export const RegisterFieldContent: Array<FormFieldType> = [
       initialValue: ''
     },
   },
-  {
-    fieldname: 'avatar',
-    input: {
-      type: 'text',
-      required: false,
-      initialValue: ''
-    },
-  },
 ]
-

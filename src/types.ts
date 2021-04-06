@@ -1,5 +1,8 @@
 import { ThunkAction, Action } from '@reduxjs/toolkit';
 import { store } from './redux/store';
+import { RegistrationSchema } from './validationSchemas';
+import * as yup from 'yup';
+
 
 export type LinkPropTypes = {
   text: string,
@@ -43,18 +46,34 @@ export type FormFieldType  = {
 }
 
 
+export type RegisterValidationType = yup.InferType<typeof RegistrationSchema>
 
-export type RegisterType = {
-  name?: string,
-  login: string,
-  email: string,
-  password: string,
-  avatar?: string
+
+export type FormDataType = {
+  fields: Array<FormFieldType>,
+  validationSchema: RegisterValidationType,
+  onSubmit: (values: any) => void
+}
+
+
+export type ModalDataType = {
+  title: string,
+  target: string,
+  submitButton: string,
+  closeButton: string,
+  resetButton: string
+}
+export type ModalProps = {
+  FormData: FormDataType,
+
+  ModalData: ModalDataType
 }
 
 
 
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export type AppThunk<ReturnType = void> =
   ThunkAction<
     ReturnType,
