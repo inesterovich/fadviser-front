@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useContext} from 'react';
 import './Auth.styles.scss';
 import logoUrl from '../../assets/images/fadviser.svg';
 import { Card } from '../../components/Card';
@@ -9,12 +9,15 @@ import { FormDataType, ModalDataType, RegisterValidationType, AuthValidationType
 import { RegistrationSchema, AuthorisationSchema } from '../../validationSchemas';
 import { RegistrationThunk } from '../../redux/Registation/Registration.thunks';
 import { useApDispatch } from '../../hooks/redux.hooks';
+import { useModal } from '../../hooks/useModal.hook';
+import { ModalContext } from '../../context/Modal.context';
 
 
 
 export const AuthPage: React.FC<{}> = () => {
   
   const dispatch = useApDispatch();
+  const { openClickHandler } = useContext(ModalContext);
   
   const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
@@ -85,6 +88,8 @@ export const AuthPage: React.FC<{}> = () => {
           FormData={RegisterFormData}
           ModalData={RegisterModalContent}
         />
+
+        <button type="button" onClick={() => openClickHandler('Мой новый текст')}>Test Button</button>
 
 
         
