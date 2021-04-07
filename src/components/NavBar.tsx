@@ -3,6 +3,7 @@ import { LinkPropTypes, FormDataType } from '../types';
 import { AuthFieldContent, AuthModalContent, RegisterFieldContent, RegisterModalContent } from '../content';
 import { useApDispatch } from '../hooks/redux.hooks';
 import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
+import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
 import { AuthorisationSchema, RegistrationSchema } from '../validationSchemas';
 import { NavLink } from 'react-router-dom';
 import { ModalContext } from '../context/Modal.context';
@@ -41,13 +42,12 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   const AuthFormData:FormDataType = {
     fields: AuthFieldContent,
     validationSchema: AuthorisationSchema,
-    onSubmit: () => console.log('ready')
+    onSubmit: (values: any) => dispatch(AuthorizationThunk(values))
   }
 
 
 
-  // Сделать модалки в меню. Их тут будет всего две, ищем по имени. 
-  // Вынести контент туда, где всё. Добавить модалку на регистрацию, завязать переприсвоение на стейт открытия, запретить скролл - найти body, сохранить его в контекст
+  // запретить скролл - найти body, сохранить его в контекст
 
   
   if (isAuthenticated) {
