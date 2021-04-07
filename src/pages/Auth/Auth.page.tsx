@@ -17,7 +17,7 @@ import { ModalContext } from '../../context/Modal.context';
 export const AuthPage: React.FC<{}> = () => {
   
   const dispatch = useApDispatch();
-  const { openClickHandler } = useContext(ModalContext);
+  const { openModalHandler} = useContext(ModalContext);
   
   const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
@@ -84,12 +84,9 @@ export const AuthPage: React.FC<{}> = () => {
           }
         </div>
 
-        <Modal
-          FormData={RegisterFormData}
-          ModalData={RegisterModalContent}
-        />
+            <button type="button" onClick={() => openModalHandler(RegisterFormData, RegisterModalContent) }>Присоединиться</button>
 
-        <button type="button" onClick={() => openClickHandler('Мой новый текст')}>Test Button</button>
+       
 
 
         

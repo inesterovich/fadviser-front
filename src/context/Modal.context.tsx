@@ -1,12 +1,23 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
+import { ModalDataType, FormDataType } from '../types';
+import { defaultModalContent, defaultFormContent } from '../content'
 
-const noop = (modalData: any|undefined) => { }
 
+type ModalContextType = {
+  isModalOpen: boolean,
+  modalData: ModalDataType ,
+  formData: FormDataType,
+  openModalHandler: (form: any, modal?: any) => void,
+  closeModalHandler: () => void
+}
 
-export const ModalContext= createContext({
-  modalState: false,
-  modalProps: null,
-  openClickHandler: noop,
-  closeClickHandler: noop
+const initialContext:ModalContextType = {
+  isModalOpen: false,
+  modalData: defaultModalContent,
+  formData: defaultFormContent,
+  openModalHandler: (form, modal) => {},
+  closeModalHandler: () => {}
   
-})
+}
+
+export const ModalContext= createContext(initialContext)

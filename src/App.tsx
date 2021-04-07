@@ -4,21 +4,23 @@ import { Header } from './views/Header/Header';
 import { Footer } from './views/Footer/Footer';
 import { ModalContext } from './context/Modal.context';
 import { useModal } from './hooks/useModal.hook';
-import { HookedModal } from './components/HookedModal';
+import { Modal } from './components/Modal';
 
 function App() {
   const routes = useRoutes(false);
-  const { isModalOpen, openModalHandler, modalData  } = useModal();
+  const { isModalOpen, openModalHandler, formData, modalData, closeModalHandler   } = useModal();
 
+  // Нужен дефолтный текст модалки. Именно его и рендерить
   return (
 
 
     <ModalContext.Provider value={
       {
-        modalState: isModalOpen,
-        modalProps: modalData,
-        openClickHandler: openModalHandler,
-        closeClickHandler: () => {}
+        isModalOpen,
+        modalData,
+        formData,
+        openModalHandler: openModalHandler,
+        closeModalHandler
       }}>
       <>
       <div className="App">
@@ -29,7 +31,7 @@ function App() {
         <Footer />
         </div>
         <div className="modals">
-          <HookedModal />
+          <Modal />
         </div>
       </>
     </ModalContext.Provider>

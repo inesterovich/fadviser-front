@@ -1,7 +1,7 @@
-import React, { ChangeEventHandler, MouseEventHandler, useState, useRef } from 'react';
+import React, { useContext, ChangeEventHandler, MouseEventHandler, useState, useRef } from 'react';
 import {  useFormik } from 'formik';
-import { ModalProps } from '../types';
-
+import { ModalProps, FormDataType, ModalDataType } from '../types';
+import { ModalContext } from '../context/Modal.context';
 
 
 interface ValuesIndexer  {
@@ -9,13 +9,12 @@ interface ValuesIndexer  {
 }
 
 
-export const Modal:React.FC<ModalProps> = ({ FormData, ModalData}) => {
+export const Modal:React.FC = () => {
   
+  const { isModalOpen, formData, modalData, closeModalHandler } = useContext(ModalContext);
 
-  const [isOpen, setOpen] = useState(false);
-  const { fields, validationSchema, onSubmit } = FormData;
-  const { title, target, submitButton, closeButton, resetButton } = ModalData;
-
+  const { title, submitButton, closeButton  } = modalData;
+  const { fields, validationSchema, onSubmit } = formData;
 
   const initialFormValues = fields.reduce((accumulator, currentValue, index) => {
   
@@ -31,20 +30,11 @@ export const Modal:React.FC<ModalProps> = ({ FormData, ModalData}) => {
     onSubmit,
   });
 
-  const openClickHandler:MouseEventHandler = () => setOpen(true);
-  const closeClickHandler:MouseEventHandler = (e) => {
-    formik.handleReset(e);
-    setOpen(false);
-  };
-
-  
-
-
   return (
-    <>
-      <button className="btn" onClick={openClickHandler}>{ target}</button>
-      <div className={`modal ${isOpen && 'open'}`}>
-            <h2>{title}</h2>
+      <div className={`modal ${isModalOpen ? 'open': ''}`}>
+           <h2>{title}</h2>
+        {
+
         <form onSubmit={formik.handleSubmit} >
         <div className="fields-wrapper">
           
@@ -67,7 +57,7 @@ export const Modal:React.FC<ModalProps> = ({ FormData, ModalData}) => {
                         id={field.fieldname}
                         type={field.input.type}
                         name={field.fieldname}
-                        value={fieldValues[field.fieldname]}
+                        value={fieldValues[field.fieldname]|| ''}
                         onChange={formik.handleChange}
                         placeholder={field.input.placeholder}
                         required={field.input.required}
@@ -83,13 +73,17 @@ export const Modal:React.FC<ModalProps> = ({ FormData, ModalData}) => {
         </div>
      <div className="buttons-wrapper">
        
-            <button type="submit">{ submitButton }</button>
-            <button type="button" onClick={closeClickHandler}>{closeButton}</button>
+            <button type="submit">{submitButton}</button>
+            <button type="button" onClick={closeModalHandler}>{ closeButton }</button>
+           
        
      </div>
     </form>
+
+        }
+           
     </div>
-    </>
+
    
   )
 }

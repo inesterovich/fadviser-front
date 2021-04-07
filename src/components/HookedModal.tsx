@@ -3,11 +3,11 @@ import { ModalContext } from '../context/Modal.context';
 
 export const HookedModal: React.FC = () => {
   
-  const { modalState: isOpen, modalProps } = useContext(ModalContext);
+  const { isModalOpen: isOpen, modalData } = useContext(ModalContext);
   
   return (
     <div className={`modal ${isOpen ? 'open': ''}`}>
-      <p>{ modalProps ? modalProps: 'Дефолтный текст' }</p>
+      <p>{ modalData ? modalData: 'Дефолтный текст' }</p>
     </div>
   )
 }

@@ -6,7 +6,7 @@ import financialCapUrl from './assets/images/financialCap.jpg';
 import timeMoneyUrl from './assets/images/timeMoney.jpg';
 import reportUrl from './assets/images/report.jpg';
 
-import { CardProps, LinkPropTypes, FormFieldType } from './types';
+import { CardProps, LinkPropTypes, FormFieldType, ModalDataType, FormDataType } from './types';
 
 
 type CardsContentType = CardProps[];
@@ -141,6 +141,24 @@ export const LinkConfig: LinkPropTypes[] = [
 // Вопрос. Мне, что-нибудь кроме инпутов тут надо?
 // Нужен label и placeholder
 
+export const defaultModalContent: ModalDataType = {
+  title: 'Модальное окно',
+  target: 'Остатки',
+  closeButton: 'Закрыть',
+  submitButton: 'Отправить',
+  resetButton: 'Очистить'
+}
+
+ const defaultFieldContent: Array<FormFieldType> = [{
+  fieldname: 'default',
+  label: 'Пожалуйста, подождите'
+}]
+
+export const defaultFormContent: FormDataType = {
+  fields: defaultFieldContent,
+  validationSchema: {},
+  onSubmit: () => {}
+}
 
 export const RegisterFieldContent: Array<FormFieldType> = [
   {
