@@ -142,31 +142,65 @@ export const LinkConfig: LinkPropTypes[] = [
 // Нужен label и placeholder
 
 
-
-
 export const RegisterFieldContent: Array<FormFieldType> = [
   {
     fieldname: 'login',
+    label: 'Логин',
     input: {
       type: 'text',
       required: true,
-      initialValue: ''
+      initialValue: '',
+      placeholder: 'Введите логин'
     },
   },
   {
     fieldname: 'email',
+    label: 'Email',
     input: {
       type: 'email',
       required: true,
-      initialValue: ''
+      initialValue: '',
+      placeholder: 'Введите Email'
     },
   },
   {
     fieldname: 'password',
+    label: 'Пароль',
     input: {
       type: 'password',
       required: true,
-      initialValue: ''
+      initialValue: '',
+      placeholder: 'Введите пароль'
     },
   },
 ]
+
+
+
+export const AuthFieldContent: Array<FormFieldType> = [
+  {
+    fieldname: 'login',
+    label: 'Логин',
+    input: {
+      type: 'text',
+      required: true,
+      initialValue: '',
+      placeholder: 'Введите логин'
+    },
+  },
+  {
+    fieldname: 'password',
+    label: 'Пароль',
+    input: {
+      type: 'password',
+      required: true,
+      initialValue: '',
+      placeholder: 'Введите пароль'
+    },
+  },
+];
+
+
+
+
+

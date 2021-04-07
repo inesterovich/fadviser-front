@@ -1,6 +1,6 @@
 import { ThunkAction, Action } from '@reduxjs/toolkit';
 import { store } from './redux/store';
-import { RegistrationSchema } from './validationSchemas';
+import { RegistrationSchema, AuthorisationSchema } from './validationSchemas';
 import * as yup from 'yup';
 
 
@@ -37,21 +37,24 @@ export type inputFieldType = {
 
 export type FormFieldType  = {
   fieldname: string,
+  label: string,
   input?: {
     type: string,
     required?: boolean,
-    initialValue: string
+    initialValue: string,
+    placeholder: string
   }
  [index: string]: any
 }
 
 
 export type RegisterValidationType = yup.InferType<typeof RegistrationSchema>
+export type AuthValidationType = yup.InferType<typeof AuthorisationSchema>
 
-
+// Тут мне нужен дженерик - на валидационную схему. Она всякий раз будет другая
 export type FormDataType = {
   fields: Array<FormFieldType>,
-  validationSchema: RegisterValidationType,
+  validationSchema: any,
   onSubmit: (values: any) => void
 }
 
@@ -65,8 +68,7 @@ export type ModalDataType = {
 }
 export type ModalProps = {
   FormData: FormDataType,
-
-  ModalData: ModalDataType
+  ModalData: ModalDataType,
 }
 
 

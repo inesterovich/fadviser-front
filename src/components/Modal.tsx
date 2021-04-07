@@ -1,8 +1,6 @@
-import React, { ChangeEventHandler, MouseEventHandler, useState } from 'react';
+import React, { ChangeEventHandler, MouseEventHandler, useState, useRef } from 'react';
 import {  useFormik } from 'formik';
 import { ModalProps } from '../types';
-
-
 
 
 
@@ -11,12 +9,13 @@ interface ValuesIndexer  {
 }
 
 
-export const Modal = ({ FormData, ModalData}: ModalProps) => {
+export const Modal:React.FC<ModalProps> = ({ FormData, ModalData}) => {
   
 
   const [isOpen, setOpen] = useState(false);
   const { fields, validationSchema, onSubmit } = FormData;
   const { title, target, submitButton, closeButton, resetButton } = ModalData;
+
 
   const initialFormValues = fields.reduce((accumulator, currentValue, index) => {
   
@@ -47,8 +46,6 @@ export const Modal = ({ FormData, ModalData}: ModalProps) => {
       <div className={`modal ${isOpen && 'open'}`}>
             <h2>{title}</h2>
         <form onSubmit={formik.handleSubmit} >
-         
-          
         <div className="fields-wrapper">
           
             {
@@ -61,7 +58,7 @@ export const Modal = ({ FormData, ModalData}: ModalProps) => {
                 return (
                   <p key={key}>
                     <label htmlFor={field.fieldname}>
-                      {currentFieldError ? currentFieldError: field.fieldname}
+                      {currentFieldError ? currentFieldError: field.label}
                     </label>
                   
                     
@@ -72,6 +69,8 @@ export const Modal = ({ FormData, ModalData}: ModalProps) => {
                         name={field.fieldname}
                         value={fieldValues[field.fieldname]}
                         onChange={formik.handleChange}
+                        placeholder={field.input.placeholder}
+                        required={field.input.required}
                         autoComplete='off'
           
           

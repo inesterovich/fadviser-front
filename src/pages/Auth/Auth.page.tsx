@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import './Auth.styles.scss';
 import logoUrl from '../../assets/images/fadviser.svg';
 import { Card } from '../../components/Card';
 import { cardsContent } from '../../content';
 import { Modal } from '../../components/Modal';
-import { RegisterFieldContent } from '../../content';
-import { FormDataType, ModalDataType } from '../../types';
-import { RegistrationSchema } from '../../validationSchemas';
+import { RegisterFieldContent, AuthFieldContent } from '../../content';
+import { FormDataType, ModalDataType, RegisterValidationType, AuthValidationType } from '../../types';
+import { RegistrationSchema, AuthorisationSchema } from '../../validationSchemas';
 import { RegistrationThunk } from '../../redux/Registation/Registration.thunks';
 import { useApDispatch } from '../../hooks/redux.hooks';
 
@@ -31,6 +31,31 @@ export const AuthPage: React.FC<{}> = () => {
 
   }
 
+  const AuthFormData:FormDataType = {
+    fields: AuthFieldContent,
+    validationSchema: AuthorisationSchema,
+    onSubmit: () => console.log('ready')
+  }
+
+  /* С рефами не парюсь. Делаю копии модалок и всё на этом
+    Погоди-ка. Авторизации так-то у меня вообще нет модалки. Если делать рефы, но неплохо их в app вынести, и туда все модалки. А сами рефы - в Redux класть?
+  
+  */
+
+ /*  Попробовать завтра прикрутить рефы: 3 параметр*/
+  const AuthModalContent:ModalDataType = {
+    title: 'Авторизация',
+    target: 'Войти',
+    submitButton: 'Войти',
+    closeButton: 'Закрыть',
+    resetButton: 'Очистить'
+    
+  }
+
+  /*  Модалка есть. После регистрации модалку можно закрыть. Сделать useEffect с таймаутом и очисткой сообщения
+    Анмаунтингом не увлекаюсь. Будут две модалки. Одна для регистрации, вторая для авторизации
+  
+  */
 
 
 
@@ -56,7 +81,10 @@ export const AuthPage: React.FC<{}> = () => {
           }
         </div>
 
-        <Modal FormData={RegisterFormData} ModalData={RegisterModalContent }/>
+        <Modal
+          FormData={RegisterFormData}
+          ModalData={RegisterModalContent}
+        />
 
 
         
