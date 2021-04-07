@@ -1,15 +1,13 @@
-import React, {useRef, useContext} from 'react';
+import React, { useContext} from 'react';
 import './Auth.styles.scss';
 import logoUrl from '../../assets/images/fadviser.svg';
 import { Card } from '../../components/Card';
 import { cardsContent } from '../../content';
-import { Modal } from '../../components/Modal';
-import { RegisterFieldContent, AuthFieldContent } from '../../content';
-import { FormDataType, ModalDataType, RegisterValidationType, AuthValidationType } from '../../types';
-import { RegistrationSchema, AuthorisationSchema } from '../../validationSchemas';
+import { RegisterFieldContent, RegisterModalContent } from '../../content';
+import { FormDataType} from '../../types';
+import { RegistrationSchema } from '../../validationSchemas';
 import { RegistrationThunk } from '../../redux/Registation/Registration.thunks';
 import { useApDispatch } from '../../hooks/redux.hooks';
-import { useModal } from '../../hooks/useModal.hook';
 import { ModalContext } from '../../context/Modal.context';
 
 
@@ -18,47 +16,15 @@ export const AuthPage: React.FC<{}> = () => {
   
   const dispatch = useApDispatch();
   const { openModalHandler} = useContext(ModalContext);
-  
+
   const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
     validationSchema: RegistrationSchema,
     onSubmit: (values:any) => dispatch(RegistrationThunk(values))
   }
 
-  const RegisterModalContent:ModalDataType = {
-    title: 'Регистрация',
-    target: 'Присоединиться',
-    submitButton: 'Зарегистрироваться',
-    closeButton: 'Закрыть',
-    resetButton: 'Очистить'
 
-  }
 
-  const AuthFormData:FormDataType = {
-    fields: AuthFieldContent,
-    validationSchema: AuthorisationSchema,
-    onSubmit: () => console.log('ready')
-  }
-
-  /* С рефами не парюсь. Делаю копии модалок и всё на этом
-    Погоди-ка. Авторизации так-то у меня вообще нет модалки. Если делать рефы, но неплохо их в app вынести, и туда все модалки. А сами рефы - в Redux класть?
-  
-  */
-
- /*  Попробовать завтра прикрутить рефы: 3 параметр*/
-  const AuthModalContent:ModalDataType = {
-    title: 'Авторизация',
-    target: 'Войти',
-    submitButton: 'Войти',
-    closeButton: 'Закрыть',
-    resetButton: 'Очистить'
-    
-  }
-
-  /*  Модалка есть. После регистрации модалку можно закрыть. Сделать useEffect с таймаутом и очисткой сообщения
-    Анмаунтингом не увлекаюсь. Будут две модалки. Одна для регистрации, вторая для авторизации
-  
-  */
 
 
 

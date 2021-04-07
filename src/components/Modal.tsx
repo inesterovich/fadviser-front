@@ -1,6 +1,5 @@
-import React, { useContext, ChangeEventHandler, MouseEventHandler, useState, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {  useFormik } from 'formik';
-import { ModalProps, FormDataType, ModalDataType } from '../types';
 import { ModalContext } from '../context/Modal.context';
 
 
@@ -29,6 +28,7 @@ export const Modal:React.FC = () => {
     validationSchema,
     onSubmit,
   });
+
 
   return (
       <div className={`modal ${isModalOpen ? 'open': ''}`}>

@@ -1,6 +1,11 @@
-import React, { MouseEvent, useState } from 'react';
-import { LinkPropTypes } from '../types';
+import React, { MouseEvent, useState, useContext } from 'react';
+import { LinkPropTypes, FormDataType } from '../types';
+import { AuthFieldContent, AuthModalContent, RegisterFieldContent, RegisterModalContent } from '../content';
+import { useApDispatch } from '../hooks/redux.hooks';
+import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
+import { AuthorisationSchema, RegistrationSchema } from '../validationSchemas';
 import { NavLink } from 'react-router-dom';
+import { ModalContext } from '../context/Modal.context';
 
 
 type NavBarProps = {
@@ -16,12 +21,33 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   
   const isAuthenticated: boolean = false;
 
+  const dispatch = useApDispatch();
+
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+
+  const { openModalHandler } = useContext(ModalContext);
 
   const menuToogler = (event: MouseEvent) => {
     event.preventDefault();
     setMenuOpen(!isMenuOpen);
   }
+
+  const RegisterFormData:FormDataType = {
+    fields: RegisterFieldContent,
+    validationSchema: RegistrationSchema,
+    onSubmit: (values:any) => dispatch(RegistrationThunk(values))
+  }
+  
+  const AuthFormData:FormDataType = {
+    fields: AuthFieldContent,
+    validationSchema: AuthorisationSchema,
+    onSubmit: () => console.log('ready')
+  }
+
+
+
+  // Сделать модалки в меню. Их тут будет всего две, ищем по имени. 
+  // Вынести контент туда, где всё. Добавить модалку на регистрацию, завязать переприсвоение на стейт открытия, запретить скролл - найти body, сохранить его в контекст
 
   
   if (isAuthenticated) {
@@ -37,8 +63,8 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
       <ul className="main-nav-list">
           {
             
-        mainLinks.map((link, key) => (
-          <li key={key}><NavLink to={link.to} >{ link.text }</NavLink> </li>
+            mainLinks.map((link, key) => (
+         <li key={key}><NavLink to={link.to} >{ link.text }</NavLink> </li> 
         ))
       }
       </ul>
@@ -67,11 +93,31 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
       
       <ul className="main-nav-list">
         {
-        links.slice().filter(link => !link.isAuth && !link.isModule).map((link, key) => (
+          links.slice().filter(link => !link.isAuth && !link.isModule).map((link, key) => (
           <li key={key} onClick={(event: MouseEvent<HTMLLIElement>) => {
             const linkTarget: HTMLElement = event.currentTarget.children[0] as HTMLElement;
             linkTarget.click();
-          }}><NavLink to={link.to} >{ link.text }</NavLink> </li>
+            }}>
+              { link.text === 'Регистрация' ?
+                <a href="/"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    openModalHandler(RegisterFormData, RegisterModalContent)
+                }}
+                >{link.text}</a>
+                :  link.text === 'Войти' ?
+                <a href="/"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    openModalHandler(AuthFormData, AuthModalContent)
+                }}
+                >{link.text}</a>
+                : <NavLink to={link.to} >{link.text}</NavLink>
+                
+                }
+              
+              
+            </li>
         ))
       }
       </ul>
@@ -84,7 +130,25 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
           <li key={key} onClick={(event: MouseEvent<HTMLLIElement>) => {
             const linkTarget: HTMLElement = event.currentTarget.children[0] as HTMLElement;
             linkTarget.click();
-          }}><NavLink to={link.to} >{ link.text }</NavLink> </li>
+          }}>
+            { link.text === 'Регистрация' ?
+                <a href="/"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    openModalHandler(RegisterFormData, RegisterModalContent)
+                }}
+                >{link.text}</a>
+                : <NavLink to={link.to} >{link.text}</NavLink>}
+              { link.text === 'Войти' ?
+                <a href="/"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    openModalHandler(AuthFormData, AuthModalContent)
+                }}
+                >{link.text}</a>
+                : <NavLink to={link.to} >{link.text}</NavLink>}
+              
+            </li>
         ))
       }
         </ul>

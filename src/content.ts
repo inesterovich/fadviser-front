@@ -193,6 +193,15 @@ export const RegisterFieldContent: Array<FormFieldType> = [
   },
 ]
 
+export const RegisterModalContent:ModalDataType = {
+  title: 'Регистрация',
+  target: 'Присоединиться',
+  submitButton: 'Зарегистрироваться',
+  closeButton: 'Закрыть',
+  resetButton: 'Очистить'
+
+}
+
 
 
 export const AuthFieldContent: Array<FormFieldType> = [
@@ -217,6 +226,15 @@ export const AuthFieldContent: Array<FormFieldType> = [
     },
   },
 ];
+
+export const AuthModalContent:ModalDataType = {
+  title: 'Авторизация',
+  target: 'Войти',
+  submitButton: 'Войти',
+  closeButton: 'Закрыть',
+  resetButton: 'Очистить'
+  
+}
 
 
 
