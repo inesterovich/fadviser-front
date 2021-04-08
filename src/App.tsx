@@ -7,7 +7,7 @@ import { useModal } from './hooks/useModal.hook';
 import { Modal } from './components/Modal';
 
 function App() {
-  const routes = useRoutes(false);
+  const routes = useRoutes();
   const { isModalOpen, openModalHandler, formData, modalData, closeModalHandler   } = useModal();
 
   // Нужен дефолтный текст модалки. Именно его и рендерить

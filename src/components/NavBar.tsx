@@ -1,7 +1,7 @@
 import React, { MouseEvent, useState, useContext } from 'react';
 import { LinkPropTypes, FormDataType } from '../types';
 import { AuthFieldContent, AuthModalContent, RegisterFieldContent, RegisterModalContent } from '../content';
-import { useApDispatch } from '../hooks/redux.hooks';
+import { useApDispatch, useAppSelector } from '../hooks/redux.hooks';
 import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
 import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
 import { AuthorisationSchema, RegistrationSchema } from '../validationSchemas';
@@ -20,7 +20,7 @@ type NavBarProps = {
 
 export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => {
   
-  const isAuthenticated: boolean = false;
+  const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
 
   const dispatch = useApDispatch();
 

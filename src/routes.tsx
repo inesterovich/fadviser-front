@@ -1,10 +1,12 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { AuthPage } from './pages/Auth/Auth.page';
-import { DashBoardPage } from './pages/Dashboard/Dashboard.page';
+import { AuthPage } from './modules/user-modules/Auth/Auth.page';
+import { DashBoardPage } from './modules/user-modules/Dashboard/Dashboard.page';
+import { useAppSelector } from './hooks/redux.hooks';
 
-export const useRoutes = (isAuthenticated: boolean) => {
+export const useRoutes = () => {
 
+  const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
   if (isAuthenticated) {
     return (
       <Switch>

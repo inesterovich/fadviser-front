@@ -1,14 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+type RegisterStateType = {
+  isFetching: boolean,
+  errors: any,
+  registered: boolean
+}
+
+const initialState:RegisterStateType = {
+  isFetching: false,
+  errors: false,
+  registered: false,
+}
+
 export const RegistrationSlice = createSlice({
   name: 'Registration',
-  initialState: {
-    isFetching: false,
-    errors: null,
-    registered: false,
-  },
+  initialState,
   reducers: {
-    setIsFetching: (state, action: PayloadAction<any>) => {
+    setIsFetching: (state, action: PayloadAction<boolean>) => {
       state.isFetching = action.payload
     }
      ,
@@ -16,7 +24,7 @@ export const RegistrationSlice = createSlice({
       state.errors = action.payload
     }
       ,
-    setRegistered: (state, action: PayloadAction<any>) => {
+    setRegistered: (state, action: PayloadAction<boolean>) => {
       state.registered = action.payload
     }
       
