@@ -1,6 +1,6 @@
 import React, { useContext} from 'react';
 import './Auth.styles.scss';
-import logoUrl from '../../assets/images/fadviser.svg';
+import logoUrl from '../../../assets/images/fadviser.svg';
 import { Card } from '../../../components/Card';
 import { cardsContent } from '../../../content';
 import { RegisterFieldContent, RegisterModalContent } from '../../../content';

@@ -1,8 +1,8 @@
-@import '../../_scss_variables';
+@import '../../../scss_variables';
 
 .promo-section {
   height: calc(100vh - #{$header-height});
-  background-image: url('../../assets/images/promo-image.jpg');
+  background-image: url('../../../assets/images/promo-image.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;

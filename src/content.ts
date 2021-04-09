@@ -100,7 +100,7 @@ export const LinkConfig: LinkPropTypes[] = [
   },
   {
     text: 'Дашбоард',
-    to: '/dashboard',
+    to: '/',
     isModule: true,
   },
   {
