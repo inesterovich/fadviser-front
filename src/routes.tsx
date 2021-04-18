@@ -34,7 +34,7 @@ export const useRoutes = () => {
         <Route path="/debt" exact>
           <DebtPage />
         </Route>
-        <Route path="/incomecap" exact>
+        <Route path="/income-cap" exact>
           <IncomeCapPage />
         </Route>
         <Route path="/money-life" exact>

@@ -125,7 +125,7 @@ export const LinkConfig: LinkPropTypes[] = [
   },
   {
     text: 'Конвертер жизни',
-    to: '/money-life-converter',
+    to: '/money-life',
     isModule: true,
   },
   {

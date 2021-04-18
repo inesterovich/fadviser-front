@@ -1,9 +1,9 @@
 import React from "react";
+import { AsideBar } from '../../../components/AsideBar';
+import { LinkConfig } from '../../../content';
 
 export const DashBoardPage: React.FC<{}> = () => {
   return (
-    <div>
-      <h2>Dasboard</h2>
-    </div>
+    <div>DashBoard Page</div>
   )
 }
