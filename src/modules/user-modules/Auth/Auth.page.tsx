@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect} from 'react';
 import './Auth.styles.scss';
 import logoUrl from '../../../assets/images/fadviser.svg';
 import { Card } from '../../../components/Card';
@@ -7,21 +7,34 @@ import { RegisterFieldContent, RegisterModalContent } from '../../../content';
 import { FormDataType} from '../../../types';
 import { RegistrationSchema } from '../../../validationSchemas';
 import { RegistrationThunk } from '../../../redux/Registation/Registration.thunks';
-import { useApDispatch } from '../../../hooks/redux.hooks';
+import { RegistrationSlice } from '../../../redux/Registation/Registration.slice';
+import { useApDispatch, useAppSelector } from '../../../hooks/redux.hooks';
 import { ModalContext } from '../../../context/Modal.context';
 
 
 
 export const AuthPage: React.FC<{}> = () => {
+
+  const isRegistered = useAppSelector(state => state.register?.registered);
+
+  const { setRegistered } = RegistrationSlice.actions;
   
   const dispatch = useApDispatch();
-  const { openModalHandler} = useContext(ModalContext);
+  const { openModalHandler, closeModalHandler } = useContext(ModalContext);
 
   const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
     validationSchema: RegistrationSchema,
     onSubmit: (values:any) => dispatch(RegistrationThunk(values))
   }
+
+
+  useEffect(() => {
+    if (isRegistered) {
+      closeModalHandler();
+      dispatch(setRegistered(false));
+    };
+  }, [closeModalHandler, dispatch, isRegistered, setRegistered]) 
 
 
 

@@ -1,8 +1,10 @@
-import React, { MouseEvent, useState, useContext } from 'react';
+import React, { MouseEvent, useState, useContext, useEffect } from 'react';
 import { LinkPropTypes, FormDataType } from '../types';
 import { AuthFieldContent, AuthModalContent, RegisterFieldContent, RegisterModalContent } from '../content';
+import { AuthorizationSlice } from '../redux/Authorization/Authorization.slice';
 import { useApDispatch, useAppSelector } from '../hooks/redux.hooks';
 import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
+import { RegistrationSlice } from '../redux/Registation/Registration.slice';
 import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
 import { AuthorisationSchema, RegistrationSchema } from '../validationSchemas';
 import { NavLink } from 'react-router-dom';
@@ -21,12 +23,15 @@ type NavBarProps = {
 export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => {
   
   const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
+  const isRegistered = useAppSelector(state => state.register?.registered);
+  const { setRegistered } = RegistrationSlice.actions;
 
   const dispatch = useApDispatch();
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
-  const { openModalHandler } = useContext(ModalContext);
+  const { openModalHandler, closeModalHandler } = useContext(ModalContext);
+  const { setAuthData } = AuthorizationSlice.actions;
 
   const menuToogler = (event: MouseEvent) => {
     event.preventDefault();
@@ -45,7 +50,18 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
     onSubmit: (values: any) => dispatch(AuthorizationThunk(values))
   }
 
+// Такой useEffect потенциально опасен для остальных модалок
+  useEffect(() => {
+  if (isRegistered) {
+    closeModalHandler();
+    dispatch(setRegistered(false));
+  };
+}, [closeModalHandler, dispatch, isRegistered, setRegistered]) 
 
+
+  useEffect(() => {
+    if (isAuthenticated) closeModalHandler();
+  }, [closeModalHandler, isAuthenticated]);
 
   // запретить скролл - найти body, сохранить его в контекст
 
@@ -64,7 +80,16 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
           {
             
             mainLinks.map((link, key) => (
-         <li key={key}><NavLink to={link.to} >{ link.text }</NavLink> </li> 
+              <li key={key}> {
+                link.text === 'Выйти' ?
+                  <a href="/logout" onClick={(event) => {
+                    event.preventDefault();
+                    dispatch(setAuthData(undefined))
+                  }}>{ link.text }</a> :
+                <NavLink to={link.to} >{link.text}</NavLink>
+              }
+                
+              </li>
         ))
       }
       </ul>
@@ -74,7 +99,17 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
         <ul className={`mobile-menu-list ${isMenuOpen ? 'open' : ''}`}>
         {
         links.slice().filter(link => link.isAuth === true || link.isModule === true).map((link, key) => (
-          <li key={key}><NavLink to={link.to} >{ link.text }</NavLink> </li>
+          <li key={key}>
+            {
+                link.text === 'Выйти' ?
+                  <a href="/logout" onClick={(event) => {
+                    event.preventDefault();
+                  dispatch(setAuthData(undefined));
+                }}>{ link.text }</a> :
+                <NavLink to={link.to} >{link.text}</NavLink>
+              }
+          
+          </li>
         ))
       }
         </ul>
