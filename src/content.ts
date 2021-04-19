@@ -13,7 +13,10 @@ type CardsContentType = CardProps[];
 
 export const cardsContent: CardsContentType = [
   {
-    link: null,
+    link: {
+      text: 'Учёт финансов',
+      to: '/accounts'
+    },
     image: {
       src: budgettingUrl,
       alt: 'Учёт финансов'
@@ -22,7 +25,10 @@ export const cardsContent: CardsContentType = [
     text: 'Добавляйте счета, операции. Настраивайте свои категории'
   },
   {
-    link: null,
+    link: {
+      text: 'Планирование бюджета',
+      to: '/budget'
+    },
     image: {
       src: accountingUrl,
       alt: 'Планируйте будущее'
@@ -31,7 +37,10 @@ export const cardsContent: CardsContentType = [
     text: 'Сформируйте бюджет по системе 6 шкатулок или составьте самостоятельно'
   },
   {
-    link: null,
+    link: {
+      text: 'Управление кредитами',
+      to: '/debt'
+    },
     image: {
       src: loanUrl,
       alt: 'Управляйте долгами'
@@ -40,7 +49,10 @@ export const cardsContent: CardsContentType = [
     text: 'Подберите стратегию погашения или проверьте банк на честность'
   },
   {
-    link: null,
+    link: {
+      text: 'Калькулятор дохода',
+      to: '/income-cap'
+    },
     image: {
       src: financialCapUrl,
       alt: 'Растите в деньгах'
@@ -49,7 +61,10 @@ export const cardsContent: CardsContentType = [
     text: 'Определите ваш потенциальный уровень дохода и стремитесь к нему'
   },
   {
-    link: null,
+    link: {
+      text: 'Конвертер жизни',
+      to: '/money-life'
+    },
     image: {
       src: timeMoneyUrl,
       alt: 'Экономьте жизнь'
@@ -58,7 +73,10 @@ export const cardsContent: CardsContentType = [
     text: 'Переведите ваши покупки в часы жизни и не тратьте деньги на лишнее'
   },
   {
-    link: null,
+    link: {
+      text: 'Отчёты и аналитика',
+      to: '/reports'
+    },
     image: {
       src: reportUrl,
       alt: 'Создавайте отчёты'

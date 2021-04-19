@@ -72,3 +72,13 @@ a{
     grid-template-rows: 1;
   }
 }
+
+.main-content {
+  display: grid;
+  width: 80%;
+  grid-template-columns: 25rem auto;
+  margin: 0 auto;
+}
+
+
+

@@ -1,0 +1,32 @@
+@import '../../../scss_variables';
+
+.dashboard {
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 3rem;
+  row-gap: 3rem;
+
+  .card {
+    background-color: $bg-color-secondary;
+    text-align: center;
+    color: $text-color-secondary;
+    box-shadow: 
+      0 2px 2px 0 rgb(0 0 0 / 14%),
+      0 3px 1px -2px rgb(0 0 0 / 12%),
+      0 1px 5px 0 rgb(0 0 0 / 20%);
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    img {
+      width: 100%;
+    }
+
+ 
+
+   
+ 
+  }
+}

@@ -27,11 +27,26 @@ function App() {
       }}>
       <>
       <div className="App">
-        <Header />
-          <main>
-            {isAuthenticated && <AsideBar className="aside" links={LinkConfig} />}
-          {routes}
-        </main>
+          <Header />
+          {
+            /*<main className="main">
+            {isAuthenticated
+              && <AsideBar className="aside" links={LinkConfig} />}
+            {routes}
+        </main>  */
+          }
+
+          <main className="main">
+            {
+              isAuthenticated ?
+                <div className="main-content">
+                <AsideBar className="aside" links={LinkConfig} />
+                {routes}
+                </div>
+                : routes
+            }
+          </main>
+          
         <Footer />
         </div>
         <div className="modals">
