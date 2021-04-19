@@ -2,7 +2,7 @@ import { createSlice, PayloadAction  } from '@reduxjs/toolkit';
 
 export type AuthDataType = {
   token: string,
-  userId?: string,
+  _id?: string,
   [key:string]: string|undefined
 }
 

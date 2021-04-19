@@ -5,7 +5,7 @@ import { UserDataSlice } from './UserData/UserData.slice';
 import { AccountsSlice } from './app-modules/Accounting/Accounts/Accounts.slice';
 
 const accountsReducer = combineReducers({
-  accountList: AccountsSlice.reducer
+  accountsData: AccountsSlice.reducer
 })
 
 export const rootReducer = combineReducers({
