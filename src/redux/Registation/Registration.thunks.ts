@@ -13,12 +13,12 @@ export const RegistrationThunk = (data:any):AppThunk => async (dispatch) => {
 
   if (statusCode === 417) {
     dispatch(setErrors('Пользователь уже существует'));
-    setTimeout(() => setErrors(false), 3000)
+    setTimeout(() => dispatch(setErrors(false)), 3000)
   };
 
   if (statusCode === 500) {
     dispatch(setErrors('Что-то пошло не так. Попробуйте снова'));
-    setTimeout(() => setErrors(false), 3000)
+    setTimeout(() => dispatch(setErrors(false)), 3000)
   };
 
   dispatch(setIsFetching(false));

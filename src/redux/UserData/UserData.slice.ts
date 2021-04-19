@@ -5,7 +5,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export const UserDataSlice = createSlice({
   name: 'UserData',
   initialState: {
-    isFetching: true,
+    isFetching: false,
     errors: false,
     userInfo: undefined
   },

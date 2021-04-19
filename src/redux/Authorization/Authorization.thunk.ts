@@ -13,17 +13,17 @@ export const AuthorizationThunk =
       const responce = await AuthorizationRequest(formData)
       if (responce.status === 401) {
         dispatch(setErrors('Токен отсутствует или истёк'));
-        setTimeout(() => setErrors(false), 3000);
+        setTimeout(() => dispatch(setErrors(false)), 3000);
       }
-      if (responce.status === 422) {
+      if (responce.status === 403) {
         dispatch(setErrors('Неверный логин или пароль'));
-        setTimeout(() => setErrors(false), 3000)
+        setTimeout(() => dispatch(setErrors(false)), 3000)
       }
 
       if (responce.status === 200) {
         const data:AuthDataType = await (responce as Response).json();
         dispatch(setAuthData(data));
-        setTimeout(() => setErrors(false), 3000)
+        
       }
       dispatch(setIsFetching(false));
     }

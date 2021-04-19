@@ -17,17 +17,17 @@ export const UserDataThunk = (data: UserDataType): AppThunk => async (dispatch) 
 
   if (responce.status === 403) {
     dispatch(setErrors('UserId не совпадает'));
-    setTimeout(() => setErrors(false), 3000)
+    setTimeout(() => dispatch(setErrors(false)), 3000)
   };
 
   if (responce.status === 401) {
     dispatch(setErrors('Токен отсутствует или истёк'));
-    setTimeout(() => setErrors(false), 3000)
+    setTimeout(() => dispatch(setErrors(false)), 3000)
   };
 
   if (responce.status === 404) {
     dispatch(setErrors('Пользователь не найдее'));
-    setTimeout(() => setErrors(false), 3000)
+    setTimeout(() => dispatch(setErrors(false)), 3000)
   };
 
   if (responce.status === 200) {

@@ -43,3 +43,23 @@ export const UserDataRequest = async (userId:string, token:string) => {
   }
   
 }
+
+
+export const AccountListRequest = async (userId:string, token:string) => {
+  try {
+    const response = await fetchRequest(
+      `${baseURL}/users/${userId}/accounts`,
+      'GET',
+      null, {
+      Authorization: `Bearer ${token}`
+    }
+    );
+
+    return response;
+  } catch (error) {
+    return {
+      status: 500
+    }
+    
+  }
+}
