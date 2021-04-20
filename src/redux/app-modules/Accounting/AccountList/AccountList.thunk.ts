@@ -1,15 +1,18 @@
-import { AppThunk } from '../../../../types'
-import { AccountsSlice } from './Accounts.slice';
-import { AccountListRequest } from '../../../api.requests';
+import { AppThunk } from '../../../../types';
+import { AccountListSlice } from './AccountList.slice';
+import { FetchErrorsStatus, FetchRequestStatus } from '../RequestStatus/RequestStatus.slice';
+import { AccountRequest } from '../../../api.requests';
 
-export const AccountListThunk = (userId: string, token: string): AppThunk => async (dispatch) => {
+export const AccountListThunk = (userId:string, token:string): AppThunk => async (dispatch) => {
   
-  const { setIsFetching, setAccounts, setErrors } = AccountsSlice.actions;
+  const { setIsFetching } = FetchRequestStatus.actions;
+  const { setErrors } = FetchErrorsStatus.actions;
+  const { setAccounts } = AccountListSlice.actions;
+
   dispatch(setIsFetching(true));
 
-  const responce = await AccountListRequest(userId, token);
+  const responce = await AccountRequest.getAll(userId, token);
 
-  // Тут кейсы как раз для switch
   if (responce.status === 400) {
     dispatch(setErrors('Валидация не удалась'));
     setTimeout(() => dispatch(setErrors(false)), 3000);

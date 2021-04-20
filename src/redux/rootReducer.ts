@@ -2,10 +2,13 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { RegistrationSlice } from './Registation/Registration.slice';
 import { AuthorizationSlice } from './Authorization/Authorization.slice';
 import { UserDataSlice } from './UserData/UserData.slice';
-import { AccountsSlice } from './app-modules/Accounting/Accounts/Accounts.slice';
+import { AccountListSlice } from './app-modules/Accounting/AccountList/AccountList.slice';
+import { FetchRequestStatus, FetchErrorsStatus } from './app-modules/Accounting/RequestStatus/RequestStatus.slice';
 
 const accountsReducer = combineReducers({
-  accountsData: AccountsSlice.reducer
+  isFetching: FetchRequestStatus.reducer,
+  errors: FetchErrorsStatus.reducer,
+  accountList: AccountListSlice.reducer
 })
 
 export const rootReducer = combineReducers({

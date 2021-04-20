@@ -47,11 +47,20 @@ export type FormFieldType  = {
  [index: string]: any
 }
 
+export interface AccountsDataType  {
+  _id: string,
+  name: string,
+  sum: number
+}
+
+export interface AccountExtendedDataType extends AccountsDataType {
+  operatins?: any,
+  owner?: string,
+}
 
 export type RegisterValidationType = yup.InferType<typeof RegistrationSchema>
 export type AuthValidationType = yup.InferType<typeof AuthorisationSchema>
 
-// Тут мне нужен дженерик - на валидационную схему. Она всякий раз будет другая
 export type FormDataType = {
   fields: Array<FormFieldType>,
   validationSchema: any,
