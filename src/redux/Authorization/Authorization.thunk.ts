@@ -10,6 +10,8 @@ export const AuthorizationThunk =
         { setIsFetching,setErrors, setAuthData } = AuthorizationSlice.actions;
 
       dispatch(setIsFetching(true));
+    
+      delete formData.default;
       const responce = await AuthorizationRequest(formData)
       if (responce.status === 401) {
         dispatch(setErrors('Токен отсутствует или истёк'));

@@ -1,10 +1,9 @@
-import React, { MouseEvent, useState, useContext, useEffect } from 'react';
+import React, { MouseEvent, useState, useContext } from 'react';
 import { LinkPropTypes, FormDataType } from '../types';
 import { AuthFieldContent, AuthModalContent, RegisterFieldContent, RegisterModalContent } from '../content';
 import { AuthorizationSlice } from '../redux/Authorization/Authorization.slice';
 import { useApDispatch, useAppSelector } from '../hooks/redux.hooks';
 import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
-import { RegistrationSlice } from '../redux/Registation/Registration.slice';
 import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
 import { AuthorisationSchema, RegistrationSchema } from '../validationSchemas';
 import { NavLink } from 'react-router-dom';

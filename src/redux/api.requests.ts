@@ -65,5 +65,22 @@ export const AccountRequest = {
       }
       
     }
+  },
+  create: async (form: any, userId: string, token: string) => {
+    try {
+      
+      const response = await fetchRequest(`${baseURL}/users/${userId}/accounts/create`,
+        'POST', form, {
+        Authorization: `Bearer ${token}`
+      }
+      );
+
+      return response;
+    } catch (error) {
+      return {
+        status: 500
+      }
+    }
+    
   }
 }

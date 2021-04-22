@@ -9,4 +9,9 @@ export const RegistrationSchema = yup.object().shape({
 export const AuthorisationSchema = yup.object().shape({
   login: yup.string().required(),
   password: yup.string().min(6, 'Пароль слишком короткий').required()
-}).required()
+}).required();
+
+export const createAccountSchema = yup.object().shape({
+  name: yup.string(),
+  sum: yup.number()
+})

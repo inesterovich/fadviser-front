@@ -47,13 +47,18 @@ export type FormFieldType  = {
  [index: string]: any
 }
 
-export interface AccountsDataType  {
+export interface AccountDataType  {
   _id: string,
   name: string,
-  sum: number
+  sum: number,
+  operatins?: any,
+  owner?: string,
 }
 
-export interface AccountExtendedDataType extends AccountsDataType {
+export interface AccountExtendedDataType {
+  _id?: string,
+  name?: string,
+  sum?: number
   operatins?: any,
   owner?: string,
 }

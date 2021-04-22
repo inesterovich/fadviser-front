@@ -8,16 +8,6 @@ type headersIndexer = {
   [key: string]: string
 }
 
-type fetchRequestType = {
-  url: string,
-  method: string,
-  body: bodyIndexer | string | null,
-  headers: headersIndexer
-}
-
-
-
-
 export const fetchRequest = async (
   url: string,
   method: string = 'GET',

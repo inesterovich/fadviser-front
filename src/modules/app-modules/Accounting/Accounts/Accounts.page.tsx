@@ -1,9 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import { useAppSelector, useApDispatch } from '../../../../hooks/redux.hooks';
-import { AccountListThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
+import { AccountListThunk, createAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 import { ModalContext } from '../../../../context/Modal.context';
 import { FormDataType, ModalDataType } from '../../../../types';
 import { createAccountFieldContent } from '../../../../content';
+import { createAccountSchema } from '../../../../validationSchemas';
+
 
 
 export const AccountsPage: React.FC = () => {
@@ -13,22 +15,17 @@ export const AccountsPage: React.FC = () => {
   const userId = useAppSelector(state => state.authorization.authData?._id) as string;
   const token = useAppSelector(state => state.authorization.authData?.token) as string;
   const accountList = useAppSelector(state => state.accounts.accountList);
-  const { openModalHandler } = useContext(ModalContext);
+  const { openModalHandler, closeModalHandler } = useContext(ModalContext);
   
   useEffect(() => {   
     dispatch(AccountListThunk(userId, token))
  }, [dispatch, token, userId])
 
-  if (isFetching) {
-    return <div className="account-list">
-      <h3>Loading...</h3>
-    </div>
-  }
 
   const AccountFormData: FormDataType = {
     fields: createAccountFieldContent,
-    validationSchema: {},
-    onSubmit: () => {}
+    validationSchema: createAccountSchema,
+    onSubmit: (values) => dispatch(createAccountThunk(accountList, values, userId, token, closeModalHandler))
   }
 
   const ModalData: ModalDataType = {
@@ -39,9 +36,14 @@ export const AccountsPage: React.FC = () => {
     target: 'Создать'
   }
 
-
+// Надо дробить на большее число компонентов. Лодер вынести отдельно. Таблицу отдельно. И передавать пропсами
+// Проблема с первичным стейтом. 
   return (
     <div className="account-list">
+      {
+        isFetching ? <h3>Loading</h3> :
+          <>
+          
       <h2>Ваши счета</h2>
       {
         accountList.length === 0 ?
@@ -52,6 +54,7 @@ export const AccountsPage: React.FC = () => {
           </div>
           
           :
+        <>
            <table>
            <thead>
              <tr>
@@ -77,9 +80,19 @@ export const AccountsPage: React.FC = () => {
                })
              }
            </tbody>
-         </table>
+            </table>
+            
+          <button type="button" onClick={() => openModalHandler(AccountFormData, ModalData)}>Создать счёт</button>
+        </>
+        
           
       }
+          </>
+}
+      
+
+    
+    
      
    </div>
   )

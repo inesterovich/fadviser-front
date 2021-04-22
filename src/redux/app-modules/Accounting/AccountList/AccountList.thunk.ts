@@ -1,4 +1,4 @@
-import { AppThunk } from '../../../../types';
+import { AppThunk, AccountDataType } from '../../../../types';
 import { AccountListSlice } from './AccountList.slice';
 import { FetchErrorsStatus, FetchRequestStatus } from '../RequestStatus/RequestStatus.slice';
 import { AccountRequest } from '../../../api.requests';
@@ -35,4 +35,53 @@ export const AccountListThunk = (userId:string, token:string): AppThunk => async
   }
 
   dispatch(setIsFetching(false));
+}
+
+
+
+export const createAccountThunk = (
+  accountList: AccountDataType[],
+  form: any,
+  userId: string,
+  token: string,
+  closeModalHandler: () => void): AppThunk =>
+  async (dispatch) => {
+
+  const { setErrors } = FetchErrorsStatus.actions;
+  const { setIsFetching } = FetchRequestStatus.actions;
+  const { setAccounts } = AccountListSlice.actions;
+  
+
+  dispatch(setIsFetching(true));
+    const response = await AccountRequest.create(form, userId, token);
+
+    switch (response.status) {
+      case 200:
+        const data = await (response as Response).json();
+        const updatedArray = [...accountList, data?.account as AccountDataType];
+        dispatch(setAccounts(updatedArray));
+        closeModalHandler();
+        break;
+      case 400:
+        dispatch(setErrors('Валидация не удалась'));
+        setTimeout(() => dispatch(setErrors(null)), 3000);
+        break;
+      case 401:
+        dispatch(setErrors('Токен недействителен или отсутствует'));
+        setTimeout(() => dispatch(setErrors(null)), 3000);
+        break;
+      case 417:
+        dispatch(setErrors('Счёт с таким именем уже существует'));
+        setTimeout(() => dispatch(setErrors(null)), 3000);
+        break;
+    
+      default:
+        dispatch(setErrors('Что-то пошло не так, попробуйте снова'));
+        setTimeout(() => dispatch(setErrors(null)), 3000);
+    }
+ 
+ 
+  dispatch(setIsFetching(false));
+
+
 }

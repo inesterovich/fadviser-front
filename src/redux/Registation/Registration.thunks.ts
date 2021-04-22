@@ -3,8 +3,9 @@ import { RegistrationSlice } from './Registration.slice';
 import { registrationRequest } from '../api.requests';
 
 export const RegistrationThunk = (data:any, closeModalHandler:() => void):AppThunk => async (dispatch) => {
-  const { setIsFetching, setRegistered, setErrors } = RegistrationSlice.actions;
+  const { setIsFetching, setErrors } = RegistrationSlice.actions;
   dispatch(setIsFetching(true));
+  delete data.default;
   const statusCode = await registrationRequest(data);
 
   if (statusCode === 201) {
