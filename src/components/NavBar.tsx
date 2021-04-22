@@ -23,8 +23,6 @@ type NavBarProps = {
 export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => {
   
   const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
-  const isRegistered = useAppSelector(state => state.register?.registered);
-  const { setRegistered } = RegistrationSlice.actions;
 
   const dispatch = useApDispatch();
 
@@ -41,29 +39,14 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
     validationSchema: RegistrationSchema,
-    onSubmit: (values:any) => dispatch(RegistrationThunk(values))
+    onSubmit: (values:any) => dispatch(RegistrationThunk(values, closeModalHandler))
   }
   
   const AuthFormData:FormDataType = {
     fields: AuthFieldContent,
     validationSchema: AuthorisationSchema,
-    onSubmit: (values: any) => dispatch(AuthorizationThunk(values))
+    onSubmit: (values: any) => dispatch(AuthorizationThunk(values, closeModalHandler))
   }
-
-// Такой useEffect потенциально опасен для остальных модалок
-  useEffect(() => {
-  if (isRegistered) {
-    closeModalHandler();
-    dispatch(setRegistered(false));
-  };
-}, [closeModalHandler, dispatch, isRegistered, setRegistered]) 
-
-
-  useEffect(() => {
-    if (isAuthenticated) closeModalHandler();
-  }, [closeModalHandler, isAuthenticated]);
-
-  // запретить скролл - найти body, сохранить его в контекст
 
   
   if (isAuthenticated) {

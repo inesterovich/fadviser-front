@@ -245,6 +245,29 @@ export const AuthFieldContent: Array<FormFieldType> = [
   },
 ];
 
+export const createAccountFieldContent: FormFieldType[] = [
+  {
+    fieldname: 'name',
+    label: 'Название счёта',
+    input: {
+      type: 'text',
+      required: true,
+      initialValue: '',
+      placeholder: 'Кошелёк'
+    }
+  },
+  {
+    fieldname: 'sum',
+    label: 'Текущий остаток',
+    input: {
+      type: 'number',
+      required: true,
+      initialValue: 0,
+      placeholder: '0'
+    }
+  }
+]
+
 export const AuthModalContent:ModalDataType = {
   title: 'Авторизация',
   target: 'Войти',

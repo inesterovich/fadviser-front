@@ -1,6 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useAppSelector, useApDispatch } from '../../../../hooks/redux.hooks';
 import { AccountListThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
+import { ModalContext } from '../../../../context/Modal.context';
+import { FormDataType, ModalDataType } from '../../../../types';
+import { createAccountFieldContent } from '../../../../content';
+
+
 export const AccountsPage: React.FC = () => {
 
   const dispatch = useApDispatch();
@@ -8,17 +13,30 @@ export const AccountsPage: React.FC = () => {
   const userId = useAppSelector(state => state.authorization.authData?._id) as string;
   const token = useAppSelector(state => state.authorization.authData?.token) as string;
   const accountList = useAppSelector(state => state.accounts.accountList);
+  const { openModalHandler } = useContext(ModalContext);
   
-  useEffect(() => {
-   
+  useEffect(() => {   
     dispatch(AccountListThunk(userId, token))
  }, [dispatch, token, userId])
-
 
   if (isFetching) {
     return <div className="account-list">
       <h3>Loading...</h3>
     </div>
+  }
+
+  const AccountFormData: FormDataType = {
+    fields: createAccountFieldContent,
+    validationSchema: {},
+    onSubmit: () => {}
+  }
+
+  const ModalData: ModalDataType = {
+    title: 'Создать счёт',
+    closeButton: 'Закрыть',
+    resetButton: 'Очистить',
+    submitButton: 'Создать',
+    target: 'Создать'
   }
 
 
@@ -30,7 +48,7 @@ export const AccountsPage: React.FC = () => {
         
         <div className="account-list">
           <p>Нет ни одного счёта</p>
-            <button type="button">Создать счёт</button>
+            <button type="button" onClick={() => openModalHandler(AccountFormData, ModalData)}>Создать счёт</button>
           </div>
           
           :

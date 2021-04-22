@@ -25,17 +25,17 @@ export const AuthPage: React.FC<{}> = () => {
   const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
     validationSchema: RegistrationSchema,
-    onSubmit: (values:any) => dispatch(RegistrationThunk(values))
+    onSubmit: (values:any) => dispatch(RegistrationThunk(values, closeModalHandler))
   }
 
-
+/*
   useEffect(() => {
     if (isRegistered) {
       closeModalHandler();
       dispatch(setRegistered(false));
     };
   }, [closeModalHandler, dispatch, isRegistered, setRegistered]) 
-
+ */
 
 
 
