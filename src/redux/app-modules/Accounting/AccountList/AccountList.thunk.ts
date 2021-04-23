@@ -1,4 +1,4 @@
-import { AppThunk, AccountDataType } from '../../../../types';
+import { AppThunk, AccountDataType, CreateAccountValidationType } from '../../../../types';
 import { AccountListSlice } from './AccountList.slice';
 import { FetchErrorsStatus, FetchRequestStatus } from '../RequestStatus/RequestStatus.slice';
 import { AccountRequest } from '../../../api.requests';
@@ -41,7 +41,7 @@ export const AccountListThunk = (userId:string, token:string): AppThunk => async
 
 export const createAccountThunk = (
   accountList: AccountDataType[],
-  form: any,
+  form: CreateAccountValidationType,
   userId: string,
   token: string,
   closeModalHandler: () => void): AppThunk =>
@@ -51,7 +51,6 @@ export const createAccountThunk = (
   const { setIsFetching } = FetchRequestStatus.actions;
   const { setAccounts } = AccountListSlice.actions;
   
-
   dispatch(setIsFetching(true));
     const response = await AccountRequest.create(form, userId, token);
 

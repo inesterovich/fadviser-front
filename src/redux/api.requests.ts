@@ -1,4 +1,5 @@
 import { fetchRequest } from '../utils';
+import { CreateAccountValidationType } from '../types';
 
 
 const baseURL = process.env.REACT_APP_REST_API;
@@ -66,7 +67,25 @@ export const AccountRequest = {
       
     }
   },
-  create: async (form: any, userId: string, token: string) => {
+  get:  async (userId:string, accountId:string, token:string) => {
+    try {
+      const response = await fetchRequest(
+        `${baseURL}/users/${userId}/accounts/${accountId}`,
+        'GET',
+        null, {
+        Authorization: `Bearer ${token}`
+      }
+      );
+  
+      return response;
+    } catch (error) {
+      return {
+        status: 500
+      }
+      
+    }
+  },
+  create: async (form: CreateAccountValidationType, userId: string, token: string) => {
     try {
       
       const response = await fetchRequest(`${baseURL}/users/${userId}/accounts/create`,
@@ -82,5 +101,79 @@ export const AccountRequest = {
       }
     }
     
-  }
+  },
+  delete:  async (userId:string, accountId:string, token:string) => {
+    try {
+      const response = await fetchRequest(
+        `${baseURL}/users/${userId}/accounts/${accountId}/delete`,
+        'GET',
+        null, {
+        Authorization: `Bearer ${token}`
+      }
+      );
+  
+      return response;
+    } catch (error) {
+      return {
+        status: 500
+      }
+      
+    }
+  },
+  addOperation:  async (form: any, userId:string, accountId:string, token:string) => {
+    try {
+      const response = await fetchRequest(
+        `${baseURL}/users/${userId}/accounts/${accountId}/add`,
+        'POST',
+        form, {
+        Authorization: `Bearer ${token}`
+      }
+      );
+  
+      return response;
+    } catch (error) {
+      return {
+        status: 500
+      }
+      
+    }
+  },
+  updateOperation:  async (form: any, userId:string, accountId:string, operationId:string, token:string) => {
+    try {
+      const response = await fetchRequest(
+        `${baseURL}/users/${userId}/accounts/${accountId}/${operationId}/update`,
+        'POST',
+        form, {
+        Authorization: `Bearer ${token}`
+      }
+      );
+  
+      return response;
+    } catch (error) {
+      return {
+        status: 500
+      }
+      
+    }
+  },
+  deleteOperation:  async (userId:string, accountId:string, operationId:string, token:string) => {
+    try {
+      const response = await fetchRequest(
+        `${baseURL}/users/${userId}/accounts/${accountId}/${operationId}/delete`,
+        'POST',
+        null, {
+        Authorization: `Bearer ${token}`
+      }
+      );
+  
+      return response;
+    } catch (error) {
+      return {
+        status: 500
+      }
+      
+    }
+  },
+  
+
 }

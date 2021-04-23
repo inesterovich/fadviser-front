@@ -11,7 +11,8 @@ export const AuthorisationSchema = yup.object().shape({
   password: yup.string().min(6, 'Пароль слишком короткий').required()
 }).required();
 
-export const createAccountSchema = yup.object().shape({
+export const CreateAccountSchema = yup.object().shape({
   name: yup.string(),
   sum: yup.number()
 })
+

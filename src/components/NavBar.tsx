@@ -1,5 +1,5 @@
 import React, { MouseEvent, useState, useContext } from 'react';
-import { LinkPropTypes, FormDataType } from '../types';
+import { LinkPropTypes, FormDataType, AuthValidationType, RegisterValidationType } from '../types';
 import { AuthFieldContent, AuthModalContent, RegisterFieldContent, RegisterModalContent } from '../content';
 import { AuthorizationSlice } from '../redux/Authorization/Authorization.slice';
 import { useApDispatch, useAppSelector } from '../hooks/redux.hooks';
@@ -38,13 +38,13 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   const RegisterFormData:FormDataType = {
     fields: RegisterFieldContent,
     validationSchema: RegistrationSchema,
-    onSubmit: (values:any) => dispatch(RegistrationThunk(values, closeModalHandler))
+    onSubmit: (values:RegisterValidationType) => dispatch(RegistrationThunk(values, closeModalHandler))
   }
   
   const AuthFormData:FormDataType = {
     fields: AuthFieldContent,
     validationSchema: AuthorisationSchema,
-    onSubmit: (values: any) => dispatch(AuthorizationThunk(values, closeModalHandler))
+    onSubmit: (values: AuthValidationType) => dispatch(AuthorizationThunk(values, closeModalHandler))
   }
 
   

@@ -4,7 +4,7 @@ import { AccountListThunk, createAccountThunk } from '../../../../redux/app-modu
 import { ModalContext } from '../../../../context/Modal.context';
 import { FormDataType, ModalDataType } from '../../../../types';
 import { createAccountFieldContent } from '../../../../content';
-import { createAccountSchema } from '../../../../validationSchemas';
+import { CreateAccountSchema } from '../../../../validationSchemas';
 
 
 
@@ -24,7 +24,7 @@ export const AccountsPage: React.FC = () => {
 
   const AccountFormData: FormDataType = {
     fields: createAccountFieldContent,
-    validationSchema: createAccountSchema,
+    validationSchema: CreateAccountSchema,
     onSubmit: (values) => dispatch(createAccountThunk(accountList, values, userId, token, closeModalHandler))
   }
 
