@@ -47,12 +47,13 @@ export const Modal:React.FC = () => {
                 const currentFieldError = fieldErrors[field.fieldname];
                 return (
                   <p key={key}>
+                    
+                    
+                    {field.input ?
+                      <>
                     <label htmlFor={field.fieldname}>
                       {currentFieldError ? currentFieldError: field.label}
                     </label>
-                  
-                    
-                    {field.input &&
                       <input
                         id={field.fieldname}
                         type={field.input.type}
@@ -63,8 +64,13 @@ export const Modal:React.FC = () => {
                         required={field.input.required}
                         autoComplete='off'
           
-          
-                      />}
+                        />
+                        
+                    
+                      </> : field.label
+                    
+                    
+                    }
                   </p>
                 )
               })

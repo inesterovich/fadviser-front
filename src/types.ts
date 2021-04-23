@@ -71,7 +71,7 @@ export type OperationValidationSchema = yup.InferType<typeof OperationSchema>
 
 export type FormDataType = {
   fields: Array<FormFieldType>,
-  validationSchema: any,
+  validationSchema?: any,
   onSubmit: (values: any) => void
 }
 

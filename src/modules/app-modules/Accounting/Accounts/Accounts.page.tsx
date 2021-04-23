@@ -1,11 +1,12 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useApDispatch } from '../../../../hooks/redux.hooks';
-import { AccountListThunk, createAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
+import { AccountListThunk, createAccountThunk, deleteAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 import { ModalContext } from '../../../../context/Modal.context';
-import { FormDataType, ModalDataType } from '../../../../types';
+import { FormDataType, ModalDataType, FormFieldType } from '../../../../types';
 import { createAccountFieldContent } from '../../../../content';
 import { CreateAccountSchema } from '../../../../validationSchemas';
+import { Loader } from '../../../../components/Loader';
 
 
 
@@ -22,6 +23,10 @@ export const AccountsPage: React.FC = () => {
     dispatch(AccountListThunk(userId, token))
  }, [dispatch, token, userId])
 
+  
+  if (isFetching) {
+    return <Loader />
+  }
 
   const AccountFormData: FormDataType = {
     fields: createAccountFieldContent,
@@ -29,7 +34,7 @@ export const AccountsPage: React.FC = () => {
     onSubmit: (values) => dispatch(createAccountThunk(accountList, values, userId, token, closeModalHandler))
   }
 
-  const ModalData: ModalDataType = {
+  const AccountModalData: ModalDataType = {
     title: 'Создать счёт',
     closeButton: 'Закрыть',
     resetButton: 'Очистить',
@@ -37,21 +42,18 @@ export const AccountsPage: React.FC = () => {
     target: 'Создать'
   }
 
-// Надо дробить на большее число компонентов. Лодер вынести отдельно. Таблицу отдельно. И передавать пропсами
-// Проблема с первичным стейтом. 
+
   return (
     <div className="account-list">
-      {
-        isFetching ? <h3>Loading</h3> :
-          <>
-          
+    
       <h2>Ваши счета</h2>
       {
         accountList.length === 0 ?
         
         <div className="account-list">
           <p>Нет ни одного счёта</p>
-            <button type="button" onClick={() => openModalHandler(AccountFormData, ModalData)}>Создать счёт</button>
+            <button type="button" onClick={
+              () => openModalHandler(AccountFormData, AccountModalData)}>Создать счёт</button>
           </div>
           
           :
@@ -75,7 +77,29 @@ export const AccountsPage: React.FC = () => {
                      <td>{account.name}</td>
                      <td>{`${account.sum.toLocaleString()} ₽`}</td>
                      <td><Link to={`/accounts/${account._id}`}>Открыть</Link></td>
-                     <td>Удалить</td>
+                     <td>
+                       
+                       <button onClick={() => {
+
+                       const deletedAccountFieldContent: Array<FormFieldType> = [{
+                        fieldname: 'confirmation',
+                        label: `Вы собираетесь удалить счёт: ${account.name}. Данную операцию отменить невозможно`
+                       }]
+                         
+                       const deleteAccountModalContent: ModalDataType = {
+                        target: 'Удалить',
+                        title: `Удалить счёт: ${account.name}`,
+                        submitButton: 'Удалить',
+                        closeButton: 'Отмена',
+                        resetButton: 'Очистить'
+                      }
+                       const deleteAccountFormData: FormDataType = {
+                        fields: deletedAccountFieldContent,
+                        onSubmit: () => dispatch(deleteAccountThunk(accountList, account._id, userId, token, closeModalHandler))
+                      }
+                       openModalHandler(deleteAccountFormData, deleteAccountModalContent)
+
+                     }}>Удалить</button></td>
                    </tr>
                  )
                })
@@ -83,13 +107,13 @@ export const AccountsPage: React.FC = () => {
            </tbody>
             </table>
             
-          <button type="button" onClick={() => openModalHandler(AccountFormData, ModalData)}>Создать счёт</button>
+            <button type="button"
+              onClick={() => openModalHandler(AccountFormData, AccountModalData)
+              }>Создать счёт</button>
         </>
         
-          
       }
-          </>
-}
+
       
 
     
