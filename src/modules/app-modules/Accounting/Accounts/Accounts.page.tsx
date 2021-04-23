@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppSelector, useApDispatch } from '../../../../hooks/redux.hooks';
 import { AccountListThunk, createAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 import { ModalContext } from '../../../../context/Modal.context';
@@ -73,7 +74,7 @@ export const AccountsPage: React.FC = () => {
                      <td>{index + 1}</td>
                      <td>{account.name}</td>
                      <td>{`${account.sum.toLocaleString()} ₽`}</td>
-                     <td>Открыть</td>
+                     <td><Link to={`/accounts/${account._id}`}>Открыть</Link></td>
                      <td>Удалить</td>
                    </tr>
                  )
