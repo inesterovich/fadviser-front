@@ -6,7 +6,7 @@ const initialState: AccountExtendedDataType = {
   
 }
 
-export const currentAccountSlice = createSlice({
+export const CurrentAccountSlice = createSlice({
   name: 'Account',
   initialState,
   reducers: {

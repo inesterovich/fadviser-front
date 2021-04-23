@@ -16,3 +16,10 @@ export const CreateAccountSchema = yup.object().shape({
   sum: yup.number()
 })
 
+export const OperationSchema = yup.object().shape({
+  _id: yup.string(),
+  date: yup.date().required(),
+  category: yup.string().required(),
+  operationType: yup.string().required(),
+  sum: yup.number().required()
+})

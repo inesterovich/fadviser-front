@@ -1,6 +1,6 @@
 import { ThunkAction, Action } from '@reduxjs/toolkit';
 import { store } from './redux/store';
-import { RegistrationSchema, AuthorisationSchema, CreateAccountSchema } from './validationSchemas';
+import { RegistrationSchema, AuthorisationSchema, CreateAccountSchema, OperationSchema } from './validationSchemas';
 import * as yup from 'yup';
 
 
@@ -66,6 +66,7 @@ export interface AccountExtendedDataType {
 export type RegisterValidationType = yup.InferType<typeof RegistrationSchema>
 export type AuthValidationType = yup.InferType<typeof AuthorisationSchema>
 export type CreateAccountValidationType = yup.InferType<typeof CreateAccountSchema>
+export type OperationValidationSchema = yup.InferType<typeof OperationSchema>
 
 
 export type FormDataType = {

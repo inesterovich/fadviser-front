@@ -4,13 +4,13 @@ import { AuthorizationSlice } from './Authorization/Authorization.slice';
 import { UserDataSlice } from './UserData/UserData.slice';
 import { AccountListSlice } from './app-modules/Accounting/AccountList/AccountList.slice';
 import { FetchRequestStatus, FetchErrorsStatus } from './app-modules/Accounting/RequestStatus/RequestStatus.slice';
-import { currentAccountSlice } from './app-modules/Accounting/CurrentAccount/CurrentAccount.slice';
+import { CurrentAccountSlice } from './app-modules/Accounting/CurrentAccount/CurrentAccount.slice';
 
 const accountsReducer = combineReducers({
   isFetching: FetchRequestStatus.reducer,
   errors: FetchErrorsStatus.reducer,
   accountList: AccountListSlice.reducer,
-  account: currentAccountSlice.reducer
+  account: CurrentAccountSlice.reducer
 })
 
 export const rootReducer = combineReducers({
