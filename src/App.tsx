@@ -11,31 +11,26 @@ import { LinkConfig } from './content';
 
 function App() {
   const routes = useRoutes();
-  const { isModalOpen, openModalHandler, formData, modalData, closeModalHandler   } = useModal();
+  const { isModalOpen, ModalContent, openModalHandler, closeModalHandler   } = useModal();
   const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
   // Нужен дефолтный текст модалки. Именно его и рендерить
+  
+  
+  
   return (
 
 
     <ModalContext.Provider value={
       {
         isModalOpen,
-        modalData,
-        formData,
-        openModalHandler: openModalHandler,
+        ModalContent,
+        openModalHandler,
         closeModalHandler
       }}>
       <>
       <div className="App">
           <Header />
-          {
-            /*<main className="main">
-            {isAuthenticated
-              && <AsideBar className="aside" links={LinkConfig} />}
-            {routes}
-        </main>  */
-          }
-
+        
           <main className="main">
             {
               isAuthenticated ?
@@ -50,7 +45,7 @@ function App() {
         <Footer />
         </div>
         <div className="modals">
-          <Modal />
+          <Modal ModalContent={ModalContent} />
         </div>
       </>
     </ModalContext.Provider>

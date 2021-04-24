@@ -38,7 +38,7 @@ export type inputFieldType = {
 export type FormFieldType  = {
   fieldname: string,
   label: string,
-  input?: {
+  input: {
     type: string,
     required?: boolean,
     initialValue: string|number,

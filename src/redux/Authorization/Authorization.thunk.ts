@@ -4,7 +4,7 @@ import { AuthorizationRequest } from '../api.requests';
 import { AuthDataType } from './Authorization.slice';
 
 export const AuthorizationThunk =
-  (formData:AuthValidationType, closeModalHandler: () => void): AppThunk =>
+  (formData:AuthValidationType, closeModalHandler: (...args:any[]) => void): AppThunk =>
     async (dispatch) => {
       const
         { setIsFetching,setErrors, setAuthData } = AuthorizationSlice.actions;

@@ -1,13 +1,14 @@
 import React, { MouseEvent, useState, useContext } from 'react';
-import { LinkPropTypes, FormDataType, AuthValidationType, RegisterValidationType } from '../types';
-import { AuthFieldContent, AuthModalContent, RegisterFieldContent, RegisterModalContent } from '../content';
+import { LinkPropTypes, RegisterValidationType, AuthValidationType } from '../types';
 import { AuthorizationSlice } from '../redux/Authorization/Authorization.slice';
 import { useApDispatch, useAppSelector } from '../hooks/redux.hooks';
+import { NavLink } from 'react-router-dom';
+import { Form } from './Form';
+import { RegisterFieldContent, AuthFieldContent } from '../content';
+import { RegistrationSchema, AuthorisationSchema } from '../validationSchemas';
+import { ModalContext } from '../context/Modal.context';
 import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
 import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
-import { AuthorisationSchema, RegistrationSchema } from '../validationSchemas';
-import { NavLink } from 'react-router-dom';
-import { ModalContext } from '../context/Modal.context';
 
 
 type NavBarProps = {
@@ -23,11 +24,11 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   
   const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
 
+  const { openModalHandler, closeModalHandler } = useContext(ModalContext)
   const dispatch = useApDispatch();
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
-  const { openModalHandler, closeModalHandler } = useContext(ModalContext);
   const { setAuthData } = AuthorizationSlice.actions;
 
   const menuToogler = (event: MouseEvent) => {
@@ -35,17 +36,48 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
     setMenuOpen(!isMenuOpen);
   }
 
-  const RegisterFormData:FormDataType = {
-    fields: RegisterFieldContent,
-    validationSchema: RegistrationSchema,
-    onSubmit: (values:RegisterValidationType) => dispatch(RegistrationThunk(values, closeModalHandler))
-  }
   
-  const AuthFormData:FormDataType = {
-    fields: AuthFieldContent,
-    validationSchema: AuthorisationSchema,
-    onSubmit: (values: AuthValidationType) => dispatch(AuthorizationThunk(values, closeModalHandler))
-  }
+
+  const RegisterContent = <Form
+    title="Регистрация"
+    fields={RegisterFieldContent}
+    validationSchema={RegistrationSchema}
+    actions={
+      {
+        submit: {
+          buttonName: 'Зарегистрироваться',
+          action: (values: RegisterValidationType) => dispatch(RegistrationThunk(values, closeModalHandler)),
+        },
+        close: {
+          buttonName: 'Закрыть',
+          action: closeModalHandler
+        },
+        reset: {
+          buttonName: 'Очистить',
+        },
+      }
+    } />
+  
+  const AuthContent = <Form
+    title='Авторизация'
+    fields={AuthFieldContent}
+    validationSchema={AuthorisationSchema}
+    actions={{
+      submit: {
+        buttonName: 'Отправить',
+        action: (values:AuthValidationType) => dispatch(AuthorizationThunk(values, closeModalHandler))
+      },
+      close: {
+        buttonName: 'Отмена',
+        action: closeModalHandler
+      },
+      reset: {
+        buttonName: 'Очистить'
+      }
+    }
+    }
+  
+  />
 
   
   if (isAuthenticated) {
@@ -119,14 +151,14 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                 <a href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                    openModalHandler(RegisterFormData, RegisterModalContent)
+                    openModalHandler(RegisterContent)
                 }}
                 >{link.text}</a>
                 :  link.text === 'Войти' ?
                 <a href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                    openModalHandler(AuthFormData, AuthModalContent)
+                    openModalHandler(AuthContent)
                 }}
                 >{link.text}</a>
                 : <NavLink to={link.to} >{link.text}</NavLink>
@@ -152,7 +184,7 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                 <a href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                    openModalHandler(RegisterFormData, RegisterModalContent)
+                   // openModalHandler()
                 }}
                 >{link.text}</a>
                 : <NavLink to={link.to} >{link.text}</NavLink>}
@@ -160,7 +192,7 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                 <a href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                    openModalHandler(AuthFormData, AuthModalContent)
+                  //  openModalHandler()
                 }}
                 >{link.text}</a>
                 : <NavLink to={link.to} >{link.text}</NavLink>}

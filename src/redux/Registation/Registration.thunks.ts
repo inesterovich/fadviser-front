@@ -2,7 +2,7 @@ import { AppThunk, RegisterValidationType } from '../../types';
 import { RegistrationSlice } from './Registration.slice';
 import { registrationRequest } from '../api.requests';
 
-export const RegistrationThunk = (data:RegisterValidationType, closeModalHandler:() => void):AppThunk => async (dispatch) => {
+export const RegistrationThunk = (data:RegisterValidationType, closeModalHandler:(...args:any[]) => void):AppThunk => async (dispatch) => {
   const { setIsFetching, setErrors } = RegistrationSlice.actions;
   dispatch(setIsFetching(true));
   delete data.default;

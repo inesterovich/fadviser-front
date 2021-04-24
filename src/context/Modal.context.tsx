@@ -1,21 +1,17 @@
-import { createContext } from 'react';
-import { ModalDataType, FormDataType } from '../types';
-import { defaultModalContent, defaultFormContent } from '../content'
+import React , { createContext } from 'react';
 
 
 type ModalContextType = {
   isModalOpen: boolean,
-  modalData: ModalDataType ,
-  formData: FormDataType,
-  openModalHandler: (form: any, modal?: any) => void,
+  ModalContent: JSX.Element,
+  openModalHandler: (data:JSX.Element) => void,
   closeModalHandler: () => void
 }
 
 const initialContext:ModalContextType = {
   isModalOpen: false,
-  modalData: defaultModalContent,
-  formData: defaultFormContent,
-  openModalHandler: (form, modal) => {},
+  ModalContent: <h3>Дефолтный текст</h3>,
+  openModalHandler: () => {},
   closeModalHandler: () => {}
   
 }

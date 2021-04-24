@@ -2,28 +2,40 @@ import React, { useContext } from 'react';
 import './Auth.styles.scss';
 import logoUrl from '../../../assets/images/fadviser.svg';
 import { Card } from '../../../components/Card';
-import { cardsContent } from '../../../content';
-import { RegisterFieldContent, RegisterModalContent } from '../../../content';
-import { FormDataType, RegisterValidationType} from '../../../types';
+import { cardsContent, RegisterFieldContent } from '../../../content';
+import { ModalContext } from '../../../context/Modal.context';
+import { Form } from '../../../components/Form';
 import { RegistrationSchema } from '../../../validationSchemas';
 import { RegistrationThunk } from '../../../redux/Registation/Registration.thunks';
+import { RegisterValidationType } from '../../../types';
 import { useApDispatch } from '../../../hooks/redux.hooks';
-import { ModalContext } from '../../../context/Modal.context';
-
-
 
 
 export const AuthPage: React.FC<{}> = () => {
 
-  const dispatch = useApDispatch();
   const { openModalHandler, closeModalHandler } = useContext(ModalContext);
-
-  const RegisterFormData:FormDataType = {
-    fields: RegisterFieldContent,
-    validationSchema: RegistrationSchema,
-    onSubmit: (values:RegisterValidationType) => dispatch(RegistrationThunk(values, closeModalHandler))
-  }
-
+  const dispatch = useApDispatch();
+ 
+  const RegisterContent = <Form
+    title="Регистрация"
+    fields={RegisterFieldContent}
+    validationSchema={RegistrationSchema}
+    actions={
+      {
+        submit: {
+          buttonName: 'Зарегистрироваться',
+          action: (values: RegisterValidationType) => dispatch(RegistrationThunk(values, closeModalHandler)),
+        },
+        close: {
+          buttonName: 'Закрыть',
+          action: closeModalHandler
+        },
+        reset: {
+          buttonName: 'Очистить',
+        },
+      }
+    }
+  />
   return (
     <>
       <section className="promo-section">
@@ -46,12 +58,8 @@ export const AuthPage: React.FC<{}> = () => {
           }
         </div>
 
-            <button type="button" onClick={() => openModalHandler(RegisterFormData, RegisterModalContent) }>Присоединиться</button>
+            <button type="button" onClick={() => openModalHandler(RegisterContent) }>Присоединиться</button>
 
-       
-
-
-        
 
       </section>
   </>

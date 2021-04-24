@@ -167,16 +167,9 @@ export const defaultModalContent: ModalDataType = {
   resetButton: 'Очистить'
 }
 
- const defaultFieldContent: Array<FormFieldType> = [{
-  fieldname: 'default',
-  label: 'Пожалуйста, подождите'
-}]
 
-export const defaultFormContent: FormDataType = {
-  fields: defaultFieldContent,
-  validationSchema: {},
-  onSubmit: () => {}
-}
+
+
 
 export const RegisterFieldContent: Array<FormFieldType> = [
   {
