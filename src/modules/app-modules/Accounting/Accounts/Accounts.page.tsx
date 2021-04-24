@@ -16,7 +16,7 @@ export const AccountsPage: React.FC = () => {
   const isFetching = useAppSelector(state => state.accounts.isFetching);
   const userId = useAppSelector(state => state.authorization.authData?._id) as string;
   const token = useAppSelector(state => state.authorization.authData?.token) as string;
-  const accountList = useAppSelector(state => state.accounts.accountList);
+  const accountList = useAppSelector(state => state.accounts?.accountList);
   const { openModalHandler, closeModalHandler } = useContext(ModalContext);
   
   useEffect(() => {   
@@ -70,7 +70,7 @@ export const AccountsPage: React.FC = () => {
            </thead>
            <tbody>
              {
-               accountList.map((account, index) => {
+               accountList?.map((account, index) => {
                  return (
                    <tr key={account._id}>
                      <td>{index + 1}</td>
