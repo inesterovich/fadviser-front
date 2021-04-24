@@ -4,6 +4,8 @@ import { useAppSelector, useApDispatch } from '../../../../hooks/redux.hooks';
 import { AccountListThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 import { ModalContext } from '../../../../context/Modal.context';
 import { Loader } from '../../../../components/Loader';
+import { Dialog } from '../../../../components/Dialog';
+import { DeleteAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 
 
 
@@ -14,7 +16,7 @@ export const AccountsPage: React.FC = () => {
   const userId = useAppSelector(state => state.authorization.authData?._id) as string;
   const token = useAppSelector(state => state.authorization.authData?.token) as string;
   const accountList = useAppSelector(state => state.accounts?.accountList);
-  const { openModalHandler } = useContext(ModalContext);
+  const { openModalHandler, closeModalHandler } = useContext(ModalContext);
   
   useEffect(() => {   
     dispatch(AccountListThunk(userId, token))
@@ -64,9 +66,24 @@ export const AccountsPage: React.FC = () => {
                      <td>
                        
                        <button onClick={() => {
-
+                         const DeleteAccountContent =
+                           <Dialog
+                             title="Удалить счёт?"
+                             confirmation={
+                               `Вы собираетесь удалить счёт: ${account.name}. Данную операцию отменить невозможно. Вы уверены?`}
+                             actions={{
+                               submit: {
+                                 buttonName: 'Да',
+                                 action: () => dispatch(DeleteAccountThunk(accountList, account._id, userId, token, closeModalHandler))
+                               },
+                               cancel: {
+                                 buttonName: 'Нет',
+                                 action: closeModalHandler
+                               }
+                             }}
+                         />
                          
-                       //openModalHandler()
+                       openModalHandler(DeleteAccountContent)
 
                      }}>Удалить</button></td>
                    </tr>

@@ -1,19 +1,15 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { FormFieldType } from '../types';
+import { FormFieldType, ActionType } from '../types';
 
-type FormActionType = {
-  buttonName: string,
-  action: (...args: any[]) => void
-}
 
 type ResetActionType = {
   buttonName: string
 }
 
 type FormActionsType = {
-  submit: FormActionType,
-  close: FormActionType,
+  submit: ActionType,
+  close: ActionType,
   reset: ResetActionType,
 
 }

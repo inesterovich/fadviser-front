@@ -120,7 +120,7 @@ export const createAccountThunk = (
 
   }
 
-  export const deleteAccountThunk = (
+  export const DeleteAccountThunk = (
     accountList: AccountDataType[],
     accountId:string,
     userId: string,

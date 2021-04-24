@@ -1,12 +1,7 @@
 import React, { useContext } from 'react';
 import { ModalContext } from '../context/Modal.context';
+import { ModaProps } from '../types';
 
-
-
-type ModaProps = {
-  ModalContent: JSX.Element,
-  ActionButtons?: JSX.Element
-}
 
 
 export const Modal:React.FC<ModaProps> = ({ ModalContent, ActionButtons}) => {

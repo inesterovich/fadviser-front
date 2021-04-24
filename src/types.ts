@@ -93,10 +93,16 @@ export type ModalDataType = {
   closeButton: string,
   resetButton: string
 }
-export type ModalProps = {
-  FormData: FormDataType,
-  ModalData: ModalDataType,
+export type ModaProps = {
+  ModalContent: JSX.Element,
+  ActionButtons?: JSX.Element
 }
+
+export type ActionType = {
+  buttonName: string,
+  action: (...args: any[]) => void
+}
+
 
 
 
