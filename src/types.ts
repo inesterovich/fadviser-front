@@ -55,13 +55,23 @@ export interface AccountDataType  {
   owner?: string,
 }
 
+type OperationType = {
+  _id: string,
+  date: Date,
+  operationType: string,
+  category: string,
+  sum: number
+
+}
+
 export interface AccountExtendedDataType {
   _id?: string,
   name?: string,
   sum?: number
-  operatins?: any,
+  operations?: OperationType[],
   owner?: string,
 }
+
 
 export type RegisterValidationType = yup.InferType<typeof RegistrationSchema>
 export type AuthValidationType = yup.InferType<typeof AuthorisationSchema>
