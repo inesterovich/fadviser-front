@@ -103,6 +103,13 @@ export type ActionType = {
   action: (...args: any[]) => void
 }
 
+export type categoryOptionsType = {
+  [key: string]: {
+    label: string,
+    values: string[]
+  }
+}
+
 
 
 

@@ -160,7 +160,7 @@ export const AccountRequest = {
     try {
       const response = await fetchRequest(
         `${baseURL}/users/${userId}/accounts/${accountId}/${operationId}/delete`,
-        'POST',
+        'GET',
         null, {
         Authorization: `Bearer ${token}`
       }

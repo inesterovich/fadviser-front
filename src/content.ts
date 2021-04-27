@@ -6,7 +6,7 @@ import financialCapUrl from './assets/images/financialCap.jpg';
 import timeMoneyUrl from './assets/images/timeMoney.jpg';
 import reportUrl from './assets/images/report.jpg';
 
-import { CardProps, LinkPropTypes, FormFieldType, ModalDataType, FormDataType } from './types';
+import { CardProps, LinkPropTypes, FormFieldType, ModalDataType, FormDataType, categoryOptionsType } from './types';
 
 
 type CardsContentType = CardProps[];
@@ -268,6 +268,18 @@ export const AuthModalContent:ModalDataType = {
   closeButton: 'Закрыть',
   resetButton: 'Очистить'
   
+}
+
+
+export const categoryOptions:categoryOptionsType = {
+  income: {
+    label: 'Доходы',
+    values: ['Заработная плата', 'Бизнес', 'Инвестиции', 'Подработки', 'Подарки', 'Долги', 'Кредиты']
+  },
+  expenses: {
+    label: 'Расходы',
+    values: ['Фонд богатства', 'Текущие расходы', 'Долгосрочные накопления', 'Здоровье', 'Образование', 'Развлечения', 'Благотворительность']
+  }
 }
 
 

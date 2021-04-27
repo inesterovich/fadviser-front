@@ -1,13 +1,15 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector, useApDispatch } from '../../../../hooks/redux.hooks';
-import { AccountListThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
+import { AccountListThunk, createAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 import { ModalContext } from '../../../../context/Modal.context';
 import { Loader } from '../../../../components/Loader';
 import { Dialog } from '../../../../components/Dialog';
 import { DeleteAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
-
-
+import { createAccountFieldContent } from '../../../../content';
+import { CreateAccountSchema } from '../../../../validationSchemas';
+import { Form } from '../../../../components/Form';
+import { CreateAccountValidationType } from '../../../../types';
 
 export const AccountsPage: React.FC = () => {
 
@@ -93,8 +95,25 @@ export const AccountsPage: React.FC = () => {
            </tbody>
             </table>
             
-            <button type="button"
-              >Создать счёт</button>
+            <button type="button" onClick={() => openModalHandler(
+              <Form
+                title="Создать счёт"
+                fields={createAccountFieldContent}
+                validationSchema={CreateAccountSchema}
+                actions={{
+                  close: {
+                    buttonName: 'Закрыть',
+                    action: closeModalHandler,
+                  },
+                  reset: {
+                    buttonName: 'Очистить',
+                  },
+                  submit: {
+                    buttonName: 'Создать',
+                    action: (values:CreateAccountValidationType) => dispatch(createAccountThunk(accountList, values, userId, token, closeModalHandler ))
+                  }
+                }}
+              />)}>Создать счёт</button>
         </>
         
       }

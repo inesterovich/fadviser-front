@@ -1,8 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApDispatch, useAppSelector } from '../../../../hooks/redux.hooks';
 import { Loader } from '../../../../components/Loader';
-import { CurrentAccountThunk  } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
+import { CurrentAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
+import { ModalContext } from '../../../../context/Modal.context';
+import { OperationForm } from '../../../../components/Forms/OperationForm';
+import { categoryOptions } from '../../../../content';
+import { OperationValidationSchema } from '../../../../types';
+import { addOperationThunk, updateOperationThunk, deleteOperationThunk  } from '../../../../redux/app-modules/Accounting/CurrentAccount/CurrentAccount.thunks';
+import { Dialog } from '../../../../components/Dialog';
+
 // Нужен UseEffect, useAppSelector, map, table
 type ParamsType = {
   accountId: string
@@ -16,6 +23,8 @@ export const AccountDetailPage: React.FC = () => {
   const userId = useAppSelector(state => state.authorization.authData?._id) as string;
   const token = useAppSelector(state => state.authorization.authData?.token) as string;
   const account = useAppSelector(state => state.accounts.account);
+
+  const { openModalHandler, closeModalHandler } = useContext(ModalContext);
 
   const { accountId }:ParamsType = useParams();
 
@@ -58,8 +67,50 @@ export const AccountDetailPage: React.FC = () => {
                   <td>{operation.operationType === 'Доход' ? operation.sum : '' }</td>
                   <td>{operation.operationType !== 'Доход' ? operation.sum : '' }</td>
                   <td>{ currentSum }</td>
-                  <td>Изменить</td>
-                  <td>Удалить</td>
+                  <td><button type="button"  onClick={() => {
+                    
+                    openModalHandler(
+                    <OperationForm
+                      title={`Изменить операцию`}
+                      date={operation.date}
+                      category={operation.category}
+                      sum={operation.sum}
+                        onSubmit={(values: OperationValidationSchema) => {
+                          values._id = operation._id;
+                          values.operationType = categoryOptions.income.values.indexOf(values.category) !== - 1 ? 'Доход' : 'Расход';
+            
+                        dispatch(updateOperationThunk(values, userId, accountId, operation._id, token, closeModalHandler))
+                      }}
+                      />)
+                  }
+                  }
+                  disabled={index === 0}
+                  >Изменить</button></td>
+                  <td>
+                    <button
+                      type="button"
+                      disabled={index === 0}
+                      onClick={() => {
+                        openModalHandler(
+                          <Dialog
+                            title="Удалить операцию?"
+                            confirmation="Вы собираетесь удалить операцию. Данное действие отменить НЕВОЗМОЖНО. Вы уверены?"
+                            actions={{
+                              cancel: {
+                                buttonName: 'Отмена',
+                                action: closeModalHandler
+                              },
+                              submit: {
+                                buttonName: 'Удалить',
+                                action: () => dispatch(deleteOperationThunk(userId, accountId, operation._id, token, closeModalHandler))
+                              }
+                            }}
+                          />)
+                      }}
+                    
+                    >Удалить </button>
+
+                  </td>
                 </tr>
               )
             })
@@ -67,6 +118,23 @@ export const AccountDetailPage: React.FC = () => {
       
       </tbody>
       </table>
+
+      <button onClick={() => openModalHandler(
+        <OperationForm
+          title="Добавить операцию"
+          date={new Date()}
+          category="Заработная плата"
+          sum={0}
+          onSubmit={ async (values) => {
+            const operationType = categoryOptions.income.values.indexOf(values.category) !== - 1 ? 'Доход' : 'Расход';
+            values.operationType = operationType;
+            const submitValues = values as OperationValidationSchema;
+            dispatch(addOperationThunk(submitValues, userId, accountId, token, closeModalHandler));
+            
+    
+          }}
+        />)}>Добавить операцию</button>
+      
     </div>
   )
 }

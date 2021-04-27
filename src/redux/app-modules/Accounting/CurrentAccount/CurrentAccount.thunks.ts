@@ -21,7 +21,7 @@ export const addOperationThunk = (
     switch (response.status) {
       case 200:
         const data:AccountExtendedDataType = await (response as Response).json();
-        setAccount(data);
+        dispatch(setAccount(data));
         closeModalHandler();
         break;
       case 400:
@@ -66,7 +66,7 @@ export const updateOperationThunk = (
       case 200:
 
         const data:AccountExtendedDataType = await (response as Response).json();
-        setAccount(data);
+        dispatch(setAccount(data));
         closeModalHandler();
         break;
       case 400:
@@ -109,7 +109,7 @@ export const deleteOperationThunk = (
     switch (response.status) {
       case 200:
         const data:AccountExtendedDataType = await (response as Response).json();
-        setAccount(data);
+        dispatch(setAccount(data));
         closeModalHandler();
         break;
       case 400:
