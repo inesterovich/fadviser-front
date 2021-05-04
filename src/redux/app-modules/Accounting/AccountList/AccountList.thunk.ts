@@ -90,7 +90,7 @@ export const createAccountThunk = (
     const response = await AccountRequest.create(form, userId, token);
 
     switch (response.status) {
-      case 200:
+      case 201:
         const data:AccountDataType = await (response as Response).json();
         const updatedArray = [...accountList, data ];
         dispatch(setAccounts(updatedArray));

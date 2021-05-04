@@ -63,7 +63,7 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
            
               <select
                 name="category" id="category" onChange={handleChange}
-               
+               value={values.category}
               >
                 {Object.keys(categoryOptions).map(key => (
                   <optgroup key={key} label={categoryOptions[key].label}>
@@ -72,7 +72,7 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
                         <option
                           key={option}
                           value={option}
-                          selected={values.category === option}
+                         
                         >{option}</option>
                       ))
                   }  
@@ -91,6 +91,13 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
               name="sum"
               placeholder="0"
               type="number"
+              onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                  if (event.key === '-') {
+                    event.preventDefault();
+                  }
+              }}
+              value = {Math.abs(values.sum)}  
+              
             />
               <button type="submit">Submit</button>
               <button type="button" onClick={closeModalHandler}>Закрыть</button>

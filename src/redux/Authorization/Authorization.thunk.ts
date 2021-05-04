@@ -22,7 +22,7 @@ export const AuthorizationThunk =
         setTimeout(() => dispatch(setErrors(false)), 3000)
       }
 
-      if (responce.status === 200) {
+      if (responce.status === 201) {
         const data:AuthDataType = await (responce as Response).json();
         dispatch(setAuthData(data));
         closeModalHandler();

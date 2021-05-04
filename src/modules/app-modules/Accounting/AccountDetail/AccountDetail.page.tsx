@@ -6,7 +6,7 @@ import { CurrentAccountThunk } from '../../../../redux/app-modules/Accounting/Ac
 import { ModalContext } from '../../../../context/Modal.context';
 import { OperationForm } from '../../../../components/Forms/OperationForm';
 import { categoryOptions } from '../../../../content';
-import { OperationValidationSchema } from '../../../../types';
+import { OperationValidationSchema, OperationType } from '../../../../types';
 import { addOperationThunk, updateOperationThunk, deleteOperationThunk  } from '../../../../redux/app-modules/Accounting/CurrentAccount/CurrentAccount.thunks';
 import { Dialog } from '../../../../components/Dialog';
 
@@ -15,7 +15,7 @@ type ParamsType = {
   accountId: string
 }
 
-
+// Сумма считается категорически неправильно
 export const AccountDetailPage: React.FC = () => {
 
   const dispatch = useApDispatch();
@@ -34,7 +34,9 @@ export const AccountDetailPage: React.FC = () => {
  
   if (isFetching) {
     return <Loader />
-  }
+  };
+
+  let currentSum = 0;
 
   return (
     <div className="account">
@@ -57,16 +59,18 @@ export const AccountDetailPage: React.FC = () => {
           {
 
             account.operations?.map((operation, index) => {
-              let currentSum = 0;
               currentSum += operation.sum;
+              
               return (
                 <tr key={operation._id}>
                   <td>{ index + 1 }</td>
                   <td>{new Date(operation.date).toLocaleDateString()}</td>
                   <td>{operation.category }</td>
-                  <td>{operation.operationType === 'Доход' ? operation.sum : '' }</td>
-                  <td>{operation.operationType !== 'Доход' ? operation.sum : '' }</td>
-                  <td>{ currentSum }</td>
+                  <td>{operation.operationType === 'Доход' ?
+                    new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB'}).format(operation.sum) : ''}</td>
+                  <td>{operation.operationType !== 'Доход' ?
+                    new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB'}).format(operation.sum) : ''}</td>
+                  <td>{ new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB'}).format(currentSum) }</td>
                   <td><button type="button"  onClick={() => {
                     
                     openModalHandler(
@@ -75,10 +79,16 @@ export const AccountDetailPage: React.FC = () => {
                       date={operation.date}
                       category={operation.category}
                       sum={operation.sum}
-                        onSubmit={(values: OperationValidationSchema) => {
-                          values._id = operation._id;
-                          values.operationType = categoryOptions.income.values.indexOf(values.category) !== - 1 ? 'Доход' : 'Расход';
-            
+                      onSubmit={(values: OperationValidationSchema) => {
+                        values._id = operation._id;
+                        if (categoryOptions.income.values.indexOf(values.category) !== - 1) {
+                          values.operationType = 'Доход';
+                          values.sum = values.sum > 0 ? values.sum : -values.sum;
+                        } else {
+                          values.operationType = 'Расход';
+                          values.sum = values.sum < 0 ? values.sum : -values.sum;
+                        }
+                        
                         dispatch(updateOperationThunk(values, userId, accountId, operation._id, token, closeModalHandler))
                       }}
                       />)
@@ -126,8 +136,13 @@ export const AccountDetailPage: React.FC = () => {
           category="Заработная плата"
           sum={0}
           onSubmit={ async (values) => {
-            const operationType = categoryOptions.income.values.indexOf(values.category) !== - 1 ? 'Доход' : 'Расход';
-            values.operationType = operationType;
+            if (categoryOptions.income.values.indexOf(values.category) !== - 1) {
+              values.operationType = 'Доход';
+              values.sum = values.sum > 0 ? values.sum : -values.sum;
+            } else {
+              values.operationType = 'Расход';
+              values.sum = values.sum < 0 ? values.sum : -values.sum;
+            }
             const submitValues = values as OperationValidationSchema;
             dispatch(addOperationThunk(submitValues, userId, accountId, token, closeModalHandler));
             

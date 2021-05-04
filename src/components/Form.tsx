@@ -25,6 +25,10 @@ type ValuesIndexer =  {
   [key: string]: string|number
 }
 
+type BooleanIndexer = {
+  [key: string]: boolean|undefined;
+}
+
 export const Form: React.FC<FormProps> = ({title, fields, validationSchema, actions}) => {
   const initialValues = fields.reduce((accumulator, currentValue) => {
     return {
@@ -50,20 +54,24 @@ export const Form: React.FC<FormProps> = ({title, fields, validationSchema, acti
               const fieldValues: ValuesIndexer = formik.values;
           
               const fieldErrors: ValuesIndexer = formik.errors;
-              
               const currentFieldError = fieldErrors[field.fieldname];
+              const touchedFields: BooleanIndexer = formik.touched;
+              const isFieldTouched = touchedFields[field.fieldname];
               
               return (
                 <p key={field.fieldname}>
                    <label htmlFor={field.fieldname}>
-                      {currentFieldError ? currentFieldError: field.label}
+                      {currentFieldError && isFieldTouched ? currentFieldError: field.label}
                     </label>
                       <input
                         id={field.fieldname}
                         type={field.input.type}
                         name={field.fieldname}
                         value={fieldValues[field.fieldname]|| ''}
-                        onChange={formik.handleChange}
+                        onChange={(event) => {
+                          formik.setFieldTouched(field.fieldname, true)
+                          formik.handleChange(event);
+                        }}
                         placeholder={field.input.placeholder}
                         required={field.input.required}
                         autoComplete='off'

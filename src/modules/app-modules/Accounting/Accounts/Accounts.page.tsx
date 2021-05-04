@@ -41,7 +41,25 @@ export const AccountsPage: React.FC = () => {
         
         <div className="account-list">
           <p>Нет ни одного счёта</p>
-            <button type="button" >Создать счёт</button>
+          <button type="button" onClick={() => openModalHandler(
+              <Form
+                title="Создать счёт"
+                fields={createAccountFieldContent}
+                validationSchema={CreateAccountSchema}
+                actions={{
+                  close: {
+                    buttonName: 'Закрыть',
+                    action: closeModalHandler,
+                  },
+                  reset: {
+                    buttonName: 'Очистить',
+                  },
+                  submit: {
+                    buttonName: 'Создать',
+                    action: (values:CreateAccountValidationType) => dispatch(createAccountThunk(accountList, values, userId, token, closeModalHandler ))
+                  }
+                }}
+              />)}>Создать счёт</button>
           </div>
           
           :

@@ -55,12 +55,13 @@ export interface AccountDataType  {
   owner?: string,
 }
 
-type OperationType = {
+export type OperationType = {
   _id: string,
   date: Date,
   operationType: string,
   category: string,
-  sum: number
+  sum: number,
+  currentSum?: number;
 
 }
 
