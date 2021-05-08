@@ -9,6 +9,8 @@ import { RegistrationSchema, AuthorisationSchema } from '../validationSchemas';
 import { ModalContext } from '../context/Modal.context';
 import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
 import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
+import { AccountListSlice } from '../redux/app-modules/Accounting/AccountList/AccountList.slice';
+import { CurrentAccountSlice } from '../redux/app-modules/Accounting/CurrentAccount/CurrentAccount.slice';
 
 
 type NavBarProps = {
@@ -30,6 +32,8 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 
   const { setAuthData } = AuthorizationSlice.actions;
+  const { setAccounts } = AccountListSlice.actions;
+  const { setAccount } = CurrentAccountSlice.actions;
 
   const menuToogler = (event: MouseEvent) => {
     event.preventDefault();
@@ -98,7 +102,9 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                 link.text === 'Выйти' ?
                   <a href="/logout" onClick={(event) => {
                     event.preventDefault();
-                    dispatch(setAuthData(undefined))
+                    dispatch(setAccounts([]));
+                    dispatch(setAccount({}));
+                    dispatch(setAuthData(undefined));
                   }}>{ link.text }</a> :
                 <NavLink to={link.to} >{link.text}</NavLink>
               }
@@ -118,7 +124,9 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                 link.text === 'Выйти' ?
                   <a href="/logout" onClick={(event) => {
                     event.preventDefault();
-                  dispatch(setAuthData(undefined));
+                    dispatch(setAccounts([]));
+                    dispatch(setAccount({}));
+                    dispatch(setAuthData(undefined));
                 }}>{ link.text }</a> :
                 <NavLink to={link.to} >{link.text}</NavLink>
               }
