@@ -1,7 +1,7 @@
 import React, { MouseEvent, useState, useContext } from 'react';
 import { LinkPropTypes, RegisterValidationType, AuthValidationType } from '../types';
 import { AuthorizationSlice } from '../redux/Authorization/Authorization.slice';
-import { useApDispatch, useAppSelector } from '../hooks/redux.hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/redux.hooks';
 import { NavLink } from 'react-router-dom';
 import { Form } from './Form';
 import { RegisterFieldContent, AuthFieldContent } from '../content';
@@ -27,7 +27,7 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
 
   const { openModalHandler, closeModalHandler } = useContext(ModalContext)
-  const dispatch = useApDispatch();
+  const dispatch = useAppDispatch();
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
 

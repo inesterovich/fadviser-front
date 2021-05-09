@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector, useApDispatch } from '../../../../hooks/redux.hooks';
+import { useAppSelector, useAppDispatch } from '../../../../hooks/redux.hooks';
 import { AccountListThunk, createAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 import { ModalContext } from '../../../../context/Modal.context';
 import { Loader } from '../../../../components/Loader';
@@ -13,7 +13,7 @@ import { CreateAccountValidationType } from '../../../../types';
 
 export const AccountsPage: React.FC = () => {
 
-  const dispatch = useApDispatch();
+  const dispatch = useAppDispatch();
   const isFetching = useAppSelector(state => state.accounts.isFetching);
   const userId = useAppSelector(state => state.authorization.authData?._id) as string;
   const token = useAppSelector(state => state.authorization.authData?.token) as string;

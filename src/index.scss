@@ -19,6 +19,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   background-color: $bg-color-primary;
+  overflow-x: hidden;
 }
 
 code {
@@ -45,8 +46,27 @@ a{
   font-size: 1.5rem;
 }
 
+.unscrollable {
+  overflow-y: hidden;
+}
+
 .modal {
   display: none;
+}
+
+.overlay {
+  display: none;
+  left: 0;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba($color: #000000, $alpha: 0.60);
+  cursor: pointer;
+}
+
+.overlay.open {
+  display: block;
 }
 
 .modal.open {
@@ -58,6 +78,7 @@ a{
   width: 50%;
   min-height: 50%;
   background-color: $bg-color-secondary;
+  z-index: 1000;
 
   form {
     display: flex;

@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { CardProps } from '../types'
+import { CardProps } from '../types';
+import { useAppSelector } from '../hooks/redux.hooks';
 
 
 export const Card: React.FC<CardProps> = ({ link, image, title, text }) => {
    
-  // Мне нужны данные картинки - меняется только src и alt
+  const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
 
   const baseCard =
     <div className="card">
@@ -18,8 +19,8 @@ export const Card: React.FC<CardProps> = ({ link, image, title, text }) => {
           {text && <p>{ text }</p>}
       </div>
     </div>
-
-   if (link) {
+  
+   if (isAuthenticated && link) {
      return (
        <Link
          to={link.to}

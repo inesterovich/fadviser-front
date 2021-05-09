@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { useApDispatch, useAppSelector } from '../../../../hooks/redux.hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux.hooks';
 import { Loader } from '../../../../components/Loader';
 import { CurrentAccountThunk } from '../../../../redux/app-modules/Accounting/AccountList/AccountList.thunk';
 import { ModalContext } from '../../../../context/Modal.context';
@@ -18,7 +18,7 @@ type ParamsType = {
 // Сумма считается категорически неправильно
 export const AccountDetailPage: React.FC = () => {
 
-  const dispatch = useApDispatch();
+  const dispatch = useAppDispatch();
   const isFetching = useAppSelector(state => state.accounts.isFetching);
   const userId = useAppSelector(state => state.authorization.authData?._id) as string;
   const token = useAppSelector(state => state.authorization.authData?.token) as string;

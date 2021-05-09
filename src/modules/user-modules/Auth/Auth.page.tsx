@@ -8,13 +8,13 @@ import { Form } from '../../../components/Form';
 import { RegistrationSchema } from '../../../validationSchemas';
 import { RegistrationThunk } from '../../../redux/Registation/Registration.thunks';
 import { RegisterValidationType } from '../../../types';
-import { useApDispatch } from '../../../hooks/redux.hooks';
+import { useAppDispatch } from '../../../hooks/redux.hooks';
 
 
 export const AuthPage: React.FC<{}> = () => {
 
   const { openModalHandler, closeModalHandler } = useContext(ModalContext);
-  const dispatch = useApDispatch();
+  const dispatch = useAppDispatch();
  
   const RegisterContent = <Form
     title="Регистрация"

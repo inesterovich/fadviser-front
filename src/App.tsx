@@ -11,12 +11,10 @@ import { LinkConfig } from './content';
 
 function App() {
   const routes = useRoutes();
-  const { isModalOpen, ModalContent, openModalHandler, closeModalHandler   } = useModal();
+  const { isModalOpen, ModalContent, openModalHandler, closeModalHandler  } = useModal();
   const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
-  // Нужен дефолтный текст модалки. Именно его и рендерить
-  
-  
-  
+
+
   return (
 
 
@@ -25,7 +23,8 @@ function App() {
         isModalOpen,
         ModalContent,
         openModalHandler,
-        closeModalHandler
+        closeModalHandler,
+     
       }}>
       <>
       <div className="App">
