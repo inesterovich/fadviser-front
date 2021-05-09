@@ -2,6 +2,7 @@ import { AppThunk, AuthValidationType } from '../../types';
 import { AuthorizationSlice } from './Authorization.slice';
 import { AuthorizationRequest } from '../api.requests';
 import { AuthDataType } from './Authorization.slice';
+import { UserDataThunk } from '../UserData/UserData.thunk';
 
 export const AuthorizationThunk =
   (formData:AuthValidationType, closeModalHandler: (...args:any[]) => void): AppThunk =>
@@ -25,6 +26,7 @@ export const AuthorizationThunk =
       if (responce.status === 201) {
         const data:AuthDataType = await (responce as Response).json();
         dispatch(setAuthData(data));
+        dispatch(UserDataThunk({ token: data.token, userId: data._id as string }));
         closeModalHandler();
         
       }

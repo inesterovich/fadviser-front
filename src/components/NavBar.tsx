@@ -11,7 +11,7 @@ import { RegistrationThunk } from '../redux/Registation/Registration.thunks';
 import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
 import { AccountListSlice } from '../redux/app-modules/Accounting/AccountList/AccountList.slice';
 import { CurrentAccountSlice } from '../redux/app-modules/Accounting/CurrentAccount/CurrentAccount.slice';
-
+import { UserDataSlice } from '../redux/UserData/UserData.slice';
 
 type NavBarProps = {
   navClassName: string,
@@ -34,6 +34,7 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   const { setAuthData } = AuthorizationSlice.actions;
   const { setAccounts } = AccountListSlice.actions;
   const { setAccount } = CurrentAccountSlice.actions;
+  const { setUserInfo } = UserDataSlice.actions;
 
   const menuToogler = (event: MouseEvent) => {
     event.preventDefault();
@@ -83,9 +84,17 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
   
   />
 
+
   
   if (isAuthenticated) {
 
+    const logoutHandler = (event:React.MouseEvent) => {
+      event.preventDefault();
+      dispatch(setAccounts([]));
+      dispatch(setAccount({}));
+      dispatch(setAuthData(undefined));
+      dispatch(setUserInfo(undefined));
+    }
     const mainLinks = links.slice().filter(link => link.isAuth === true);
     return (
       <nav className={navClassName}>
@@ -100,12 +109,7 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
             mainLinks.map((link, key) => (
               <li key={key}> {
                 link.text === 'Выйти' ?
-                  <a href="/logout" onClick={(event) => {
-                    event.preventDefault();
-                    dispatch(setAccounts([]));
-                    dispatch(setAccount({}));
-                    dispatch(setAuthData(undefined));
-                  }}>{ link.text }</a> :
+                  <a href="/logout" onClick={logoutHandler}>{ link.text }</a> :
                 <NavLink to={link.to} >{link.text}</NavLink>
               }
                 
@@ -122,12 +126,7 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
           <li key={key}>
             {
                 link.text === 'Выйти' ?
-                  <a href="/logout" onClick={(event) => {
-                    event.preventDefault();
-                    dispatch(setAccounts([]));
-                    dispatch(setAccount({}));
-                    dispatch(setAuthData(undefined));
-                }}>{ link.text }</a> :
+                  <a href="/logout" onClick={logoutHandler}>{ link.text }</a> :
                 <NavLink to={link.to} >{link.text}</NavLink>
               }
           

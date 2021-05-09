@@ -47,6 +47,15 @@ export type FormFieldType  = {
  [index: string]: any
 }
 
+export type UserInfoType = {
+  _id: string,
+  name: string,
+  login: string,
+  email: string,
+  avatar: string
+  
+};
+
 export interface AccountDataType  {
   _id: string,
   name: string,
