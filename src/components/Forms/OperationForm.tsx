@@ -11,8 +11,6 @@ declare type InitialType = {
   operationType?: string,
 }
 
-
-
 type categoryPropTypes = {
   title: string,
   date: Date,
@@ -33,8 +31,6 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
   const { closeModalHandler } = useContext(ModalContext);
   
   return (
-    <div>
-      <h1>{ title }</h1>
     <Formik
       initialValues={{
         date,
@@ -50,64 +46,80 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
          
           return (
             <Form>
-     
-              <DatePicker
-                name="date"
-                format="dd-MM-yyyy"
-                value={values.date}
-                clearIcon={null}
-                onChange={(value) => setFieldValue('date', value)}
-              />
+              <header className="form-header">
+                <h2>{title}</h2>
+              </header>
+            <main className="form-main">
+                
+                <div className="field-wrapper">
+                  <DatePicker
+                    name="date"
+                    format="dd-MM-yyyy"
+                    value={new Date(values.date)}
+                    clearIcon={null}
+                    onChange={(value: Date | Date[] | string) => {
+                    
+                      setFieldValue('date', value);
+                   
+                    }}
+                  />
+                </div>
 
-            <label htmlFor="category">Категория</label>
-           
-              <select
-                name="category" id="category" onChange={handleChange}
-               value={values.category}
-              >
-                {Object.keys(categoryOptions).map(key => (
-                  <optgroup key={key} label={categoryOptions[key].label}>
-                    {
-                      categoryOptions[key].values.map(option => (
-                        <option
-                          key={option}
-                          value={option}
-                         
-                        >{option}</option>
-                      ))
-                  }  
-                  </optgroup>
-                ))
+              <div className="field-wrapper">
+                <label htmlFor="category">Категория</label>
+                  <select
+                    name="category" id="category" onChange={handleChange}
+                   value={values.category}
+                  >
+                    {Object.keys(categoryOptions).map(key => (
+                    
+                      <optgroup key={key} label={categoryOptions[key].label}>
+                        {
+                          categoryOptions[key].values.map(option => (
+                            <option
+                              key={option}
+                              value={option}
+                
+                            >{option}</option>
+                          ))
+                      }
+                      </optgroup>
+                    ))
+                    }
+                  </select>
+              </div>
+              
+              <div className="field-wrapper">
+                
+                <label htmlFor="sum">Сумма операции</label>
+                <Field
+                  id="sum"
+                  name="sum"
+                  placeholder="0"
+                  type="number"
+                  onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                      if (event.key === '-') {
+                        event.preventDefault();
+                      }
+                  }}
+                  value = {Math.abs(values.sum)}
+                
+                  />
+              </div>
+                
 
-                }
-              </select>
-               
+            </main>
               
-           
-    
-            <label htmlFor="sum">Сумма операции</label>
-            <Field
-              id="sum"
-              name="sum"
-              placeholder="0"
-              type="number"
-              onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (event.key === '-') {
-                    event.preventDefault();
-                  }
-              }}
-              value = {Math.abs(values.sum)}  
-              
-            />
-              <button type="submit">Submit</button>
-              <button type="button" onClick={closeModalHandler}>Закрыть</button>
-              <button type="reset">Очистить</button>
+              <footer className="form-footer">
+                <button type="submit">Submit</button>
+                <button type="button" onClick={closeModalHandler}>Закрыть</button>
+                <button type="reset">Очистить</button>
+              </footer>
           </Form>
           )
         
         }}
     
     </Formik>
-  </div>
   )
 }

@@ -13,10 +13,10 @@ export const Modal:React.FC<ModaProps> = ({ ModalContent, ActionButtons}) => {
     <>
     <div className={`overlay ${isModalOpen ? 'open': ''}`} onClick={closeModalHandler}> 
       </div>
-      <div className={`modal ${isModalOpen ? 'open': ''}`}>
-        <div className="modal-content">
+      <div className={`modal ${isModalOpen ? 'open' : ''}`}>
+        
           {ModalContent}
-        </div>
+        
       { ActionButtons && ActionButtons}
       </div>
       </>

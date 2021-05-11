@@ -58,7 +58,7 @@ export const AuthPage: React.FC<{}> = () => {
           }
         </div>
 
-            <button type="button" onClick={() => openModalHandler(RegisterContent) }>Присоединиться</button>
+            <button type="button" className="btn" onClick={() => openModalHandler(RegisterContent) }>Присоединиться</button>
 
 
       </section>

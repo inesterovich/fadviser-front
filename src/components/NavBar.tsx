@@ -191,19 +191,19 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                 <a href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                   // openModalHandler()
+                    openModalHandler(RegisterContent)
                 }}
                 >{link.text}</a>
-                : <NavLink to={link.to} >{link.text}</NavLink>}
-              { link.text === 'Войти' ?
+                :  link.text === 'Войти' ?
                 <a href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                  //  openModalHandler()
+                    openModalHandler(AuthContent)
                 }}
                 >{link.text}</a>
-                : <NavLink to={link.to} >{link.text}</NavLink>}
-              
+                : <NavLink to={link.to} >{link.text}</NavLink>
+                
+                }
             </li>
         ))
       }
