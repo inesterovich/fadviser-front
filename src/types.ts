@@ -17,10 +17,11 @@ export type LinkPropTypes = {
 export type LinkConfigType = LinkPropTypes[]
 
 export type CardProps = {
-  link: null | LinkPropTypes;
+  link: LinkPropTypes;
   image: ImgProps,
   title: string,
-  text?: string,
+  text: string,
+  disabled: boolean
 
 }
 

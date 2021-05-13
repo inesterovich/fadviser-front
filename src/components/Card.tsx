@@ -5,7 +5,7 @@ import { CardProps } from '../types';
 import { useAppSelector } from '../hooks/redux.hooks';
 
 
-export const Card: React.FC<CardProps> = ({ link, image, title, text }) => {
+export const Card: React.FC<CardProps> = ({ link, image, title, text, disabled }) => {
    
   const isAuthenticated = !!useAppSelector(state => state.authorization.authData?.token);
 
@@ -15,8 +15,8 @@ export const Card: React.FC<CardProps> = ({ link, image, title, text }) => {
         <img src={image.src} alt={image.alt}/>
       </div>
       <div className="card-content">
-        <h3>{ title }</h3>
-          {text && <p>{ text }</p>}
+        <h3>{ isAuthenticated ? link.text : title }</h3>
+          {!isAuthenticated && text && <p>{ text }</p>}
       </div>
     </div>
   
@@ -26,8 +26,8 @@ export const Card: React.FC<CardProps> = ({ link, image, title, text }) => {
          to={link.to}
          className={
            link.className ?
-           `link-card ${link.className}` :
-           'link-card'}>
+           `link-card ${link.className} ${disabled ? 'disabled': ''}` :
+           `link-card ${disabled ? 'disabled': ''} `}>
          { baseCard }
       </Link>
      )

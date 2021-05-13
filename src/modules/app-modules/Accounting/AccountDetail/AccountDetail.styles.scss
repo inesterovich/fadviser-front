@@ -1,0 +1,19 @@
+@import '../../../../_scss_variables.scss';
+
+
+
+.disabled-icon {
+  pointer-events: none;
+  fill: #bdbdbd;
+}
+
+@media (max-width: 600px) {
+  .operation-list-table {
+    font-size: 1rem;
+    td, th {
+      padding: 0;
+      text-align: center;
+      max-width: 3rem;
+    }
+  }
+}

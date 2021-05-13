@@ -12,6 +12,7 @@ import { AuthorizationThunk } from '../redux/Authorization/Authorization.thunk';
 import { AccountListSlice } from '../redux/app-modules/Accounting/AccountList/AccountList.slice';
 import { CurrentAccountSlice } from '../redux/app-modules/Accounting/CurrentAccount/CurrentAccount.slice';
 import { UserDataSlice } from '../redux/UserData/UserData.slice';
+import { Link } from 'react-scroll';
 
 type NavBarProps = {
   navClassName: string,
@@ -107,7 +108,7 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
           {
             
             mainLinks.map((link, key) => (
-              <li key={key}> {
+              <li key={key} className={`${key === 0 ? 'disabled': ''}`}> {
                 link.text === 'Выйти' ?
                   <a href="/logout" onClick={logoutHandler}>{ link.text }</a> :
                 <NavLink to={link.to} >{link.text}</NavLink>
@@ -119,19 +120,33 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
       </ul>
 
       <div className="mobile-menu">
-        <a href="/" onClick={menuToogler}>Меню</a>
-        <ul className={`mobile-menu-list ${isMenuOpen ? 'open' : ''}`}>
+        <a href="/" className="dropdown" onClick={menuToogler}>Меню</a>
+          <ul className={`mobile-menu-list ${isMenuOpen ? 'open' : ''}`} onClick={() => {
+            setMenuOpen(false);
+        }}>
         {
-        links.slice().filter(link => link.isAuth === true || link.isModule === true).map((link, key) => (
+              links
+                .slice()
+                .filter(link => link.isAuth === true || link.isModule === true)
+                .slice(1, 4)
+                .map((link, key) => {
+           
+       
+           
+            return (
+
           <li key={key}>
             {
                 link.text === 'Выйти' ?
                   <a href="/logout" onClick={logoutHandler}>{ link.text }</a> :
-                <NavLink to={link.to} >{link.text}</NavLink>
+                <NavLink to={link.to} className={`${key === 0 ? 'disabled': ''}`}>{link.text}</NavLink>
               }
           
           </li>
-        ))
+          
+                )}
+                
+              )
       }
         </ul>
       </div>
@@ -147,12 +162,15 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
         <img className="logo-img" src={logo.src} alt={logo.alt}/>
         </div>}
       
-      <ul className="main-nav-list">
+      <ul className="main-nav-list" >
         {
           links.slice().filter(link => !link.isAuth && !link.isModule).map((link, key) => (
-          <li key={key} onClick={(event: MouseEvent<HTMLLIElement>) => {
+            <li key={key}
+            className={`${key === 0 ? 'disabled': ''}`}
+            onClick={(event: MouseEvent<HTMLLIElement>) => {
             const linkTarget: HTMLElement = event.currentTarget.children[0] as HTMLElement;
             linkTarget.click();
+            
             }}>
               { link.text === 'Регистрация' ?
                 <a href="/"
@@ -168,7 +186,10 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                     openModalHandler(AuthContent)
                 }}
                 >{link.text}</a>
-                : <NavLink to={link.to} >{link.text}</NavLink>
+                  :  link.text === 'Возможности' ?
+                  <Link to="opportunities" activeClass="active" spy={true} smooth={true} >{ link.text }</Link> :
+                
+                  <NavLink to={link.to} >{link.text}</NavLink>
                 
                 }
               
@@ -180,14 +201,18 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
 
       <div className="mobile-menu">
         <a className="dropdown" href="/" onClick={menuToogler}>Меню</a>
-        <ul className={`mobile-menu-list ${isMenuOpen ? 'open' : ''}`}>
+        <ul className={`mobile-menu-list ${isMenuOpen ? 'open' : ''}`} onClick={() => {setMenuOpen(false)}}>
         {
         links.slice().filter(link => !link.isAuth && !link.isModule).map((link, key) => (
-          <li key={key} onClick={(event: MouseEvent<HTMLLIElement>) => {
+          <li key={key}
+            className={`${key === 0 ? 'disabled': ''}`}
+            onClick={(event: MouseEvent<HTMLLIElement>) => {
             const linkTarget: HTMLElement = event.currentTarget.children[0] as HTMLElement;
             linkTarget.click();
           }}>
-            { link.text === 'Регистрация' ?
+            {
+
+              link.text === 'Регистрация' ?
                 <a href="/"
                   onClick={(event) => {
                     event.preventDefault();
@@ -195,17 +220,22 @@ export const NavBar: React.FC<NavBarProps> = ({ navClassName, logo, links }) => 
                 }}
                 >{link.text}</a>
                 :  link.text === 'Войти' ?
-                <a href="/"
+                <a href="/" 
                   onClick={(event) => {
                     event.preventDefault();
                     openModalHandler(AuthContent)
                 }}
                 >{link.text}</a>
-                : <NavLink to={link.to} >{link.text}</NavLink>
+                  : link.text === 'Возможности' ?
+                    <Link to="opportunities" activeClass="active" spy={true} smooth={true} >{ link.text }</Link> :
+                
+                  <NavLink to={link.to} >{link.text}</NavLink>
                 
                 }
             </li>
-        ))
+        )
+        
+            )
       }
         </ul>
       </div>

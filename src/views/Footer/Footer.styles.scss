@@ -1,7 +1,7 @@
 @import '../../_scss_variables';
 
 .main-footer {
-  height: 1rem;
+  height: $header-height;
   .footer-wrapper {
     display: flex;
     justify-content: space-between;

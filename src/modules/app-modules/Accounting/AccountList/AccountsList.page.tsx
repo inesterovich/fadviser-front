@@ -10,8 +10,11 @@ import { createAccountFieldContent } from '../../../../content';
 import { CreateAccountSchema } from '../../../../validationSchemas';
 import { Form } from '../../../../components/Form';
 import { CreateAccountValidationType } from '../../../../types';
+import { ReactComponent as OpenIcon } from '../../../../assets/images/open.svg';
+import { ReactComponent as DeleteIcon } from '../../../../assets/images/delete-black.svg';
+import './AccountList.styles.scss';
 
-export const AccountsPage: React.FC = () => {
+export const AccountListPage: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const isFetching = useAppSelector(state => state.accounts.isFetching);
@@ -39,9 +42,9 @@ export const AccountsPage: React.FC = () => {
       {
         accountList.length === 0 ?
         
-        <div className="account-list">
-          <p>Нет ни одного счёта</p>
-          <button type="button" onClick={() => openModalHandler(
+        <>
+          <p className="account-placeholder">Нет ни одного счёта</p>
+          <button type="button" className="app-button" onClick={() => openModalHandler(
               <Form
                 title="Создать счёт"
                 fields={createAccountFieldContent}
@@ -60,18 +63,18 @@ export const AccountsPage: React.FC = () => {
                   }
                 }}
               />)}>Создать счёт</button>
-          </div>
+          </>
           
           :
         <>
-           <table>
+           <table className="account-list-table">
            <thead>
              <tr>
                <th>№</th>
                <th>Название счета</th>
                <th>Остаток</th>
-               <th>Открыть счёт</th>
-               <th>Удалить счёт</th>
+               <th><OpenIcon title="Открыть" /></th>
+               <th><DeleteIcon title="Удалить" /></th>
              </tr>
            </thead>
            <tbody>
@@ -82,10 +85,11 @@ export const AccountsPage: React.FC = () => {
                      <td>{index + 1}</td>
                      <td>{account.name}</td>
                      <td>{`${account.sum.toLocaleString()} ₽`}</td>
-                     <td><Link to={`/accounts/${account._id}`}>Открыть</Link></td>
+                     <td><Link to={`/accounts/${account._id}`}><OpenIcon title="Открыть" /></Link></td>
                      <td>
                        
-                       <button onClick={() => {
+                       <a href="/" onClick={(event) => {
+                         event.preventDefault();
                          const DeleteAccountContent =
                            <Dialog
                              title="Удалить счёт?"
@@ -105,7 +109,7 @@ export const AccountsPage: React.FC = () => {
                          
                        openModalHandler(DeleteAccountContent)
 
-                     }}>Удалить</button></td>
+                     }}><DeleteIcon title="Удалить" /></a></td>
                    </tr>
                  )
                })
@@ -113,7 +117,7 @@ export const AccountsPage: React.FC = () => {
            </tbody>
             </table>
             
-            <button type="button" onClick={() => openModalHandler(
+            <button type="button" className="app-button" onClick={() => openModalHandler(
               <Form
                 title="Создать счёт"
                 fields={createAccountFieldContent}

@@ -22,8 +22,10 @@ export const cardsContent: CardsContentType = [
       alt: 'Учёт финансов'
     },
     title: 'Учёт финансов',
-    text: 'Добавляйте счета, операции. Настраивайте свои категории'
+    text: 'Добавляйте счета, операции. Настраивайте свои категории',
+    disabled: false
   },
+
   {
     link: {
       text: 'Планирование бюджета',
@@ -34,7 +36,8 @@ export const cardsContent: CardsContentType = [
       alt: 'Планируйте будущее'
     },
     title: 'Планируйте будущее',
-    text: 'Сформируйте бюджет по системе 6 шкатулок или составьте самостоятельно'
+    text: 'Сформируйте бюджет по системе 6 шкатулок или составьте самостоятельно',
+    disabled: true
   },
   {
     link: {
@@ -46,7 +49,8 @@ export const cardsContent: CardsContentType = [
       alt: 'Управляйте долгами'
     },
     title: 'Управляйте долгами',
-    text: 'Подберите стратегию погашения или проверьте банк на честность'
+    text: 'Подберите стратегию погашения или проверьте банк на честность',
+    disabled: true
   },
   {
     link: {
@@ -58,7 +62,8 @@ export const cardsContent: CardsContentType = [
       alt: 'Растите в деньгах'
     },
     title: 'Растите в деньгах',
-    text: 'Определите ваш потенциальный уровень дохода и стремитесь к нему'
+    text: 'Определите ваш потенциальный уровень дохода и стремитесь к нему',
+    disabled: true
   },
   {
     link: {
@@ -70,7 +75,8 @@ export const cardsContent: CardsContentType = [
       alt: 'Экономьте жизнь'
     },
     title: 'Экономьте жизнь',
-    text: 'Переведите ваши покупки в часы жизни и не тратьте деньги на лишнее'
+    text: 'Переведите ваши покупки в часы жизни и не тратьте деньги на лишнее',
+    disabled: true
   },
   {
     link: {
@@ -82,7 +88,8 @@ export const cardsContent: CardsContentType = [
       alt: 'Создавайте отчёты'
     },
     title: 'Создавайте отчёты',
-    text: 'Визуализируйте ваши финансы и будьте в курсе текущей ситуации'
+    text: 'Визуализируйте ваши финансы и будьте в курсе текущей ситуации',
+    disabled: true
   },
 
 ]
@@ -156,8 +163,6 @@ export const LinkConfig: LinkPropTypes[] = [
 
 ]
 
-// Вопрос. Мне, что-нибудь кроме инпутов тут надо?
-// Нужен label и placeholder
 
 export const defaultModalContent: ModalDataType = {
   title: 'Модальное окно',

@@ -13,7 +13,7 @@ export const AsideBar: React.FC<AsideBarProps> = ({ className, links }) => {
   return (
     <aside className={className}>
       <nav className="aside-nav">
-        <ul>
+        <ul className="aside-nav-list">
         {links
         .slice()
         .filter(item => item.isModule === true)
@@ -22,8 +22,8 @@ export const AsideBar: React.FC<AsideBarProps> = ({ className, links }) => {
             <li key={key}
               className={
                 location.pathname === link.to ?
-                  "aside-item active" :
-                  "aside-item"
+                  `aside-item active ${key > 1 ? 'disabled': ''} ` :
+                  `aside-item ${key > 1 ? 'disabled': ''}`
                   }>
               <NavLink
                 to={link.to} className="aside-link"

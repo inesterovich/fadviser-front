@@ -44,7 +44,7 @@ export const AuthPage: React.FC<{}> = () => {
           <p>Платформа финансовых советов</p>
         </div>
       </section>
-      <section id="#opportunities" className="opportunity-section">
+      <section id="opportunities" className="opportunity-section">
           <h2>Возможности</h2>
         <div className="opportunity-wrapper">
           {
@@ -53,12 +53,16 @@ export const AuthPage: React.FC<{}> = () => {
                 link={card.link}
                 image={card.image}
                 title={card.title}
-                text={card.text} key={key} />
+                text={card.text} key={key}
+                disabled={card.disabled}
+              />
             ))
           }
         </div>
 
-            <button type="button" className="btn" onClick={() => openModalHandler(RegisterContent) }>Присоединиться</button>
+        <button type="button" className="btn" onClick={() => {
+          openModalHandler(RegisterContent)
+        }}>Присоединиться</button>
 
 
       </section>

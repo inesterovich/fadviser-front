@@ -33,6 +33,12 @@ h1, h2, h3, h4, h5, h6, ul  {
   font-weight: 400;
 }
 
+h2 {
+  margin-top: 1rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
 
 h3 {
   font-size: 2.3rem;
@@ -46,9 +52,10 @@ a{
   font-size: 1.5rem;
 }
 
-.unscrollable {
-  overflow-y: hidden;
+.unwrap {
+  white-space: nowrap;
 }
+
 
 .modal {
   display: none;
@@ -69,6 +76,13 @@ a{
   display: block;
 }
 
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
+
 .modal.open {
   position: fixed;
   top: 50%;
@@ -80,22 +94,16 @@ a{
   background-color: $bg-color-secondary;
   z-index: 1000;
  
-  form {
+  form, .dialog {
     width: 100%;
     display: flex;
     flex-direction: column;
-
-    h2 {
-      margin-top: 1rem;
-      font-size: 2.4rem;
-      text-align: center;
-    }
-
-    .form-header {
+    
+    .form-header, .dialog-header {
       flex-grow: 1;
      
     }
-    .form-main {
+    .form-main, .dialog-main {
       width: inherit;
       flex-grow: 6;
       display: flex;
@@ -105,7 +113,25 @@ a{
       flex-wrap: wrap;
      
     };
-    .form-footer {
+
+    .dialog-main {
+      row-gap: 0  !important;
+      max-width: 85%;
+      border: 2px solid red;
+      margin: 0 auto;
+      padding: 0.5rem;
+      
+      .dialog-text {
+        text-align: center;
+        margin: 1rem 0;
+        padding: 0;
+        &:last-child {
+          color: red;
+          font-weight: bold;
+        }
+      }
+    }
+    .form-footer, .dialog-footer {
       flex-grow: 3;
       width: inherit;
       display: flex;
@@ -184,13 +210,59 @@ a{
   
 }
 
+.main {
+  min-height: calc(100vh - #{$header-height} * 2);
+}
+
 
 
 .main-content {
+  padding-top: 2rem;
   display: grid;
-  width: 80%;
-  grid-template-columns: 25rem auto;
+  width: 95%;
+  grid-template-columns: 30rem auto;
   margin: 0 auto;
+  column-gap: 4rem;
+
+  .aside-nav-list {
+    background-color: $bg-color-secondary;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    list-style: none;
+    align-items: center;
+    width: inherit;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%),
+     0 3px 1px -2px rgb(0 0 0 / 12%),
+      0 1px 5px 0 rgb(0 0 0 / 20%);
+    border-radius: 2.5rem;
+    row-gap: 0.5rem;
+    padding: 1rem 0;
+  }
+
+
+  .aside-item  {
+
+    a {
+      display: block;
+      height: 64px;
+      line-height: 64px;
+      text-decoration: none;
+      color: #757575;
+      padding: 0 1.5rem;
+  
+    }
+
+     a:hover, &.active a {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+  }
+
+  .aside-item {
+   width: 100%;
+   text-align: center;
+  }
 }
 
 
@@ -199,17 +271,28 @@ a{
 .modal.open {
   width: 70%;
   min-height: 60%;
+}
 
-
+.main-content {
+  .aside-nav-list {
+    row-gap: 0;
+  }
 }
 }
+
+
 
 @media (max-width: 768px) {
   .modal.open {
     width: 80%;
 
-   
-  
+  }
+
+  .main-content {
+    grid-template-columns: 100%;
+    .aside {
+      display: none;
+    }
   }
 
   
@@ -228,6 +311,10 @@ a{
         width: 20rem;
       }
     }
+  }
+
+  .main-content {
+    width: 90%;
   }
   
 }

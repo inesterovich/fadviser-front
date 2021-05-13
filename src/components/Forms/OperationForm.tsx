@@ -4,7 +4,7 @@ import DatePicker from 'react-date-picker';
 import { ModalContext } from '../../context/Modal.context';
 import { categoryOptions } from '../../content';
 
-declare type InitialType = {
+ type InitialType = {
   date: Date,
   category: string,
   sum: number,
@@ -16,7 +16,8 @@ type categoryPropTypes = {
   date: Date,
   category: string,
   sum: number,
-  onSubmit: (...args:any) => void
+  onSubmit: (...args: any) => void,
+  validationSchema: any
 }
 
 export const OperationForm: React.FC<categoryPropTypes> = ({
@@ -24,7 +25,8 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
   date = new Date(),
   category = ' Заработная плата', 
   sum = 0,
-  onSubmit
+  onSubmit,
+  validationSchema
   }) => {
 
   
@@ -36,12 +38,16 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
         date,
         category,
         sum,
-        }}
+      }
+      }
+     validationSchema={validationSchema}
+
 
       onSubmit={onSubmit}
       >
         
-        {({ setFieldValue, values, touched, handleChange}: FormikProps<InitialType>) => {
+      {({ setFieldValue, values,
+        errors, touched, handleChange }: FormikProps<InitialType>) => {
 
          
           return (
@@ -52,7 +58,9 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
             <main className="form-main">
                 
                 <div className="field-wrapper">
+                  <label>{ errors.date ? 'Некорректная дата' : 'Дата' }</label>
                   <DatePicker
+                    
                     name="date"
                     format="dd-MM-yyyy"
                     value={new Date(values.date)}
@@ -62,14 +70,17 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
                       setFieldValue('date', value);
                    
                     }}
+                    
                   />
                 </div>
 
               <div className="field-wrapper">
-                <label htmlFor="category">Категория</label>
+                  <label htmlFor="category">
+                    {errors.category ? errors.category : 'Категория'}</label>
                   <select
                     name="category" id="category" onChange={handleChange}
-                   value={values.category}
+                    value={values.category}
+                   
                   >
                     {Object.keys(categoryOptions).map(key => (
                     
@@ -91,11 +102,10 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
               
               <div className="field-wrapper">
                 
-                <label htmlFor="sum">Сумма операции</label>
+                <label htmlFor="sum">{ errors.sum ? errors.sum : 'Сумма операции' }</label>
                 <Field
                   id="sum"
                   name="sum"
-                  placeholder="0"
                   type="number"
                   onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                       if (event.key === '-') {
@@ -103,7 +113,7 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
                       }
                   }}
                   value = {Math.abs(values.sum)}
-                
+               
                   />
               </div>
                 
@@ -111,7 +121,7 @@ export const OperationForm: React.FC<categoryPropTypes> = ({
             </main>
               
               <footer className="form-footer">
-                <button type="submit">Submit</button>
+                <button type="submit">Отправить</button>
                 <button type="button" onClick={closeModalHandler}>Закрыть</button>
                 <button type="reset">Очистить</button>
               </footer>

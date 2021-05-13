@@ -4,11 +4,25 @@
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 3rem;
-  row-gap: 3rem;
+  
+  row-gap: 2rem;
+  column-gap: 2rem;
+  margin: 0 auto;
+
+  .link-card {
+    min-height: 22rem;
+    max-width: 28rem;
+  }
+
+  
+
 
   .card {
     background-color: $bg-color-secondary;
+    height: 100%;
+    width: 100%;
+    min-width: auto;
+    margin: 0 auto;
     text-align: center;
     color: $text-color-secondary;
     box-shadow: 
@@ -28,5 +42,23 @@
 
    
  
+  }
+
+}
+
+
+@media (max-width: 768px) {
+  .dashboard {
+
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+
+ 
+  .dashboard {
+
+    grid-template-columns: repeat(1, 1fr);
   }
 }

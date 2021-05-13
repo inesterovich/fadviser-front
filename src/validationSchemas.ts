@@ -12,14 +12,14 @@ export const AuthorisationSchema = yup.object().shape({
 }).required();
 
 export const CreateAccountSchema = yup.object().shape({
-  name: yup.string(),
+  name: yup.string().required(),
   sum: yup.number()
 })
 
 export const OperationSchema = yup.object().shape({
   _id: yup.string(),
-  date: yup.date().required(),
-  category: yup.string().required(),
-  operationType: yup.string().required(),
-  sum: yup.number().required()
+  date: yup.date().required('Поле "Дата" обязательно'),
+  category: yup.string().required('Поле "Категория" обязательно'),
+  operationType: yup.string(),
+  sum: yup.number().moreThan(0, 'Сумма должна быть больше нуля').required('Поле "Сумма" обязательно')
 })

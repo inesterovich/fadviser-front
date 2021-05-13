@@ -4,7 +4,7 @@ import { AuthPage } from './modules/user-modules/Auth/Auth.page';
 import { DashBoardPage } from './modules/user-modules/Dashboard/Dashboard.page';
 import { ProfilePage } from './modules/user-modules/Profile/Profile.page';
 
-import { AccountsPage } from './modules/app-modules/Accounting/Accounts/Accounts.page';
+import { AccountListPage } from './modules/app-modules/Accounting/AccountList/AccountsList.page';
 import { AccountDetailPage } from './modules/app-modules/Accounting/AccountDetail/AccountDetail.page';
 import { BudgetPage } from './modules/app-modules/Budget/Budget.page';
 import { DebtPage } from './modules/app-modules/Debt/Debt.page';
@@ -23,7 +23,7 @@ export const useRoutes = () => {
           <DashBoardPage />
         </Route>
         <Route path="/accounts" exact>
-          <AccountsPage />
+          <AccountListPage />
         </Route>
         <Route path="/accounts/:accountId">
           <AccountDetailPage />

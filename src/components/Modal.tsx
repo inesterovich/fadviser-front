@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { ModalContext } from '../context/Modal.context';
 import { ModaProps } from '../types';
 
-
-
 export const Modal:React.FC<ModaProps> = ({ ModalContent, ActionButtons}) => {
   
   const { isModalOpen, closeModalHandler } = useContext(ModalContext);

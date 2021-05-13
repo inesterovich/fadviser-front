@@ -13,16 +13,19 @@ type DialogProps = {
 export const Dialog: React.FC<DialogProps> = ({title, confirmation, actions}) => {
   
   return (
-    <>
-      <h2>{title}</h2>
-      <div className="confirmation">
-        <p className="confirmation-text">{confirmation }</p>
+    <section className="dialog">
+      <div className="dialog-header"><h2>{title}</h2></div>
+      
+      <div className="dialog-main">
+        {
+          confirmation.split('.').map((sentence, key) => (<p className="dialog-text" key={key}>{sentence}</p>))
+        }
       </div>
-      <div className="buttons-wrapper">
+      <div className="dialog-footer">
         <button type="button" onClick={actions.submit.action}>{actions.submit.buttonName}</button>
         <button type="button" onClick={actions.cancel.action}>{actions.cancel.buttonName }</button>
       </div>
 
-     </>
+     </section>
   )
 }

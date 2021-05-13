@@ -71,10 +71,13 @@ export const Form: React.FC<FormProps> = ({title, fields, validationSchema, acti
                           id={field.fieldname}
                           type={field.input.type}
                           name={field.fieldname}
-                          value={fieldValues[field.fieldname]|| ''}
-                          onChange={(event) => {
-                            formik.setFieldTouched(field.fieldname, true)
-                            formik.handleChange(event);
+                          value={fieldValues[field.fieldname]}
+                      onChange={(event) => {
+
+                        formik.setFieldTouched(field.fieldname, true)
+                        formik.handleChange(event);
+                      
+                        
                           }}
                           placeholder={field.input.placeholder}
                           required={field.input.required}
