@@ -6,7 +6,7 @@ import financialCapUrl from './assets/images/financialCap.jpg';
 import timeMoneyUrl from './assets/images/timeMoney.jpg';
 import reportUrl from './assets/images/report.jpg';
 
-import { CardProps, LinkPropTypes, FormFieldType, ModalDataType, FormDataType, categoryOptionsType } from './types';
+import { CardProps, LinkPropTypes, FormFieldType, ModalDataType, categoryOptionsType } from './types';
 
 
 type CardsContentType = CardProps[];

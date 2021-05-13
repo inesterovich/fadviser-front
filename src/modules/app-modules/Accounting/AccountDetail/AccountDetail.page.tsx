@@ -6,7 +6,7 @@ import { CurrentAccountThunk } from '../../../../redux/app-modules/Accounting/Ac
 import { ModalContext } from '../../../../context/Modal.context';
 import { OperationForm } from '../../../../components/Forms/OperationForm';
 import { categoryOptions } from '../../../../content';
-import { OperationValidationSchema, OperationType } from '../../../../types';
+import { OperationValidationSchema } from '../../../../types';
 import { addOperationThunk, updateOperationThunk, deleteOperationThunk  } from '../../../../redux/app-modules/Accounting/CurrentAccount/CurrentAccount.thunks';
 import { Dialog } from '../../../../components/Dialog';
 import './AccountDetail.styles.scss';
@@ -15,7 +15,7 @@ import { ReactComponent as EditIcon } from '../../../../assets/images/edit-black
 import { ReactComponent as DeleteIcon } from '../../../../assets/images/delete-black.svg';
 import { ReactComponent as ExpensesIcon } from '../../../../assets/images/expenses.svg';
 import { ReactComponent as IncomeIcon } from '../../../../assets/images/income.svg';
-import yup from 'yup';
+
 
 type ParamsType = {
   accountId: string

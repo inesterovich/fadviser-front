@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { Form, Field, Formik, FormikProps } from 'formik';
 import DatePicker from 'react-date-picker';
 import { ModalContext } from '../../context/Modal.context';
